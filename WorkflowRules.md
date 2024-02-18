@@ -1,0 +1,2 @@
+Elements of workflow are required to be set in the repository - 
+team communacation and code style rules have to be formulated, knowledge basis elements are to be decided upon (how to search through documentation)and the task distribution between the team members is to be communicated as well as a progress control system.
