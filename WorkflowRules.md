@@ -1,2 +1,11 @@
-Elements of workflow are required to be set in the repository - 
-team communacation and code style rules have to be formulated, knowledge basis elements are to be decided upon (how to search through documentation)and the task distribution between the team members is to be communicated as well as a progress control system.
+Создать открытый репозиторий на GitHub как единое пространство для работы команды проекта.
+Разместить в репозитории базовую документацию по проекту (желательно в читаемом виде –
+техническое задание, возможно использовать диаграмму вариантов использования и диаграмму
+классов, разработанную заказчиком).
+Также необходимо настроить элементы рабочего пространства в репозитории – сформировать и
+разместить правила по коммуникации в команде и стилю программного кода, продумать элементы
+базы знаний по проекту (каким образом будет происходить поиск информации по документации)
+и настроить средства для распределения задач между членами команды и отслеживания работы
+над проектом.
+Ссылку на репозиторий следует разместить в таблице с составами команд
+https://disk.yandex.ru/d/gqdeFcTSBeH6Fw
