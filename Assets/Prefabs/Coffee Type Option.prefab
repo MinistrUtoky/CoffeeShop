@@ -144,6 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5585630337088398793}
   - component: {fileID: 6894074270509903719}
+  - component: {fileID: 3065873966927511559}
   m_Layer: 0
   m_Name: Content
   m_TagString: Untagged
@@ -169,7 +170,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 4000}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6894074270509903719
 MonoBehaviour:
@@ -190,13 +191,27 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &3065873966927511559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344663810111076439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &349782425392474616
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,7 +479,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 251.75, y: 1000}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &244030101457813104
 CanvasRenderer:
@@ -494,18 +509,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-    finibus congue purus sed ultrices. Suspendisse non blandit quam. Morbi consectetur
-    ex rutrum, sodales ex tempus, rhoncus dolor. Orci varius natoque penatibus et
-    magnis dis parturient montes, nascetur ridiculus mus. Nulla et rutrum ligula.
-    Integer tincidunt, ipsum a congue tempor, nisl arcu elementum libero, ut porta
-    ipsum elit imperdiet nisl. In risus odio, scelerisque sed maximus quis, suscipit
-    dictum lectus. Fusce sit amet metus eu massa faucibus ultricies a ut tellus.
-    Donec non accumsan turpis.\r\n\r\nPellentesque vel commodo urna. Nunc dictum
-    congue erat, vel volutpat augue feugiat et. Nulla posuere nunc quam, eget cursus
-    ante aliquam ut. Etiam auctor pretium nunc sed fermentum. Phasellus feugiat ante
-    a ultrices dictum. Cras a neque sed ligula varius convallis. Donec cursus risus
-    est, et dictum arcu hendrerit quis.\r\n\r\nMaecenas sit amet massa pretium, porttitor
+  m_text: "\rLorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque finibus
+    congue purus sed ultrices. Suspendisse non blandit quam. Morbi consectetur ex
+    rutrum, sodales ex tempus, rhoncus dolor. Orci varius natoque penatibus et magnis
+    dis parturient montes, nascetur ridiculus mus. Nulla et rutrum ligula. Integer
+    tincidunt, ipsum a congue tempor, nisl arcu elementum libero, ut porta ipsum
+    elit imperdiet nisl. In risus odio, scelerisque sed maximus quis, suscipit dictum
+    lectus. Fusce sit amet metus eu massa faucibus ultricies a ut tellus. Donec non
+    accumsan turpis.\r\n\r\nPellentesque vel commodo urna. Nunc dictum congue erat,
+    vel volutpat augue feugiat et. Nulla posuere nunc quam, eget cursus ante aliquam
+    ut. Etiam auctor pretium nunc sed fermentum. Phasellus feugiat ante a ultrices
+    dictum. Cras a neque sed ligula varius convallis. Donec cursus risus est, et
+    dictum arcu hendrerit quis.\r\n\r\nMaecenas sit amet massa pretium, porttitor
     orci sit amet, efficitur lectus. Suspendisse pretium magna vitae tempor vehicula.
     Nulla justo tellus, viverra non dapibus at, fermentum non libero. Curabitur laoreet
     elementum enim, sit amet ultricies dui elementum sit amet. Fusce interdum arcu
@@ -538,8 +553,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4281874488
+  m_fontColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -696,11 +711,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.5137255, g: 0.5137255, b: 0.5137255, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.21960784, g: 0.21960784, b: 0.21960784, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -714,12 +729,12 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2557704712544930077}
   m_HandleRect: {fileID: 8176849313837756576}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.06696892
+  m_Size: 0.06638293
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
