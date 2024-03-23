@@ -488,8 +488,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6268044734508552175}
-        m_TargetAssemblyTypeName: ProductButtonScript, Assembly-CSharp
-        m_MethodName: OpenOtherMenu
+        m_TargetAssemblyTypeName: PageManagement.PageChangeScript, Assembly-CSharp
+        m_MethodName: OpenOtherPage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -511,3 +511,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4281ba71aaeebac4481903bc55c5b5b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextPagePrefab: {fileID: 0}
