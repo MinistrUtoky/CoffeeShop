@@ -6,38 +6,34 @@ namespace PageManagement
 
     public class PageManagerScript : MonoBehaviour
     {
-        public enum PageEnumerator { 
-            MainPage,
-            ProductPage,
-            LoginPage,
-            ProfilePage
-        };
         public static PageManagerScript Instance { get; private set; }
         private GameObject currentPage;
-        [SerializeField] private GameObject starterScene;
-        [SerializeField]
-        private List<GameObject> pages;
+        [SerializeField] 
+        private GameObject starterPage;
 
-        public GameObject CurrentScene { get => currentPage; }
+        public GameObject CurrentScene { get { return currentPage; } }
         private void Awake()
         {
             Instance = this;
-            currentPage = starterScene;
-            currentPage.SetActive(true);
-            
+            currentPage = starterPage;
+            currentPage.SetActive(true);            
         }
         public void ChangeCurrentPage(GameObject newPage)
         {
-            currentPage.SetActive(false);
-            newPage.SetActive(true);
-            currentPage = newPage;
-        }
+            if (Input.touchCount > 0)
+            {
 
-        public void ChangeCurrentPage(PageEnumerator newPage)
-        {
-            currentPage.SetActive(false);
-            pages[((int)newPage)].SetActive(true);
-            currentPage = pages[((int)newPage)];
+                if (Input.GetTouch(0).phase != TouchPhase.Moved)
+                {
+                    Debug.Log($"Changed page to {newPage.name}");
+                    if (newPage != null)
+                    {
+                        currentPage.SetActive(false);
+                        newPage.SetActive(true);
+                        currentPage = newPage;
+                    }
+                }
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ public class AdScript : MonoBehaviour
     private float videoChangeTimeInSeconds = 5f;
     [SerializeField]
     private VideoPlayer masterVideoPlayer;
-    private int currentlyPlayingVideoIndex = 0;
+    private int _currentlyPlayingVideoIndex = 0;
 
     private void Start()
     {
@@ -29,14 +29,14 @@ public class AdScript : MonoBehaviour
     {
         while (true)
         {
-            currentlyPlayingVideoIndex = (currentlyPlayingVideoIndex+1)% videosAndAdvertisementUrls.Count;
-            masterVideoPlayer.clip = videosAndAdvertisementUrls[currentlyPlayingVideoIndex].video;
+            _currentlyPlayingVideoIndex = (_currentlyPlayingVideoIndex + 1)% videosAndAdvertisementUrls.Count;
+            masterVideoPlayer.clip = videosAndAdvertisementUrls[_currentlyPlayingVideoIndex].video;
             masterVideoPlayer.Prepare();
             yield return new WaitForSeconds(5f);
         }
     }
     public void GoToUrl()
     {
-        Application.OpenURL(videosAndAdvertisementUrls[currentlyPlayingVideoIndex].adEmbeddedLink);
+        Application.OpenURL(videosAndAdvertisementUrls[_currentlyPlayingVideoIndex].adEmbeddedLink);
     }
 }
