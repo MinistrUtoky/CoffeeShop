@@ -1,4 +1,3 @@
-
 using productRelated;
 using UnityEngine;
 
@@ -12,8 +11,11 @@ namespace PageManagement
         private GameObject starterPage;
         [SerializeField]
         private GameObject productPage;
+        [SerializeField]
+        private GameObject techPagesSeparator;
+        [SerializeField]
+        private GameObject mainPage;
         public GameObject CurrentScene { get { return currentPage; } }
-
         private void Awake()
         {
             Instance = this;
@@ -45,6 +47,11 @@ namespace PageManagement
         public void HideAddToSubscriptionPopUp()
         {
             productPage.SetActive(false);
+        }
+        public void SwitchFromTechPagesToUsables()
+        {
+            ChangeCurrentPage(mainPage);
+            techPagesSeparator.SetActive(false);
         }
     }
 }
