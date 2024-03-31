@@ -739,6 +739,7 @@ MonoBehaviour:
     login: 
     password: 
     type: 0
+    currentBalance: 0
 --- !u!1 &1759755949
 GameObject:
   m_ObjectHideFlags: 0
@@ -1973,7 +1974,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4281ba71aaeebac4481903bc55c5b5b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageToOpen: {fileID: 0}
 --- !u!114 &2638923389312683378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2307,7 +2307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4281ba71aaeebac4481903bc55c5b5b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageToOpen: {fileID: 0}
 --- !u!1 &4076577223224560122
 GameObject:
   m_ObjectHideFlags: 0
@@ -2739,7 +2738,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4281ba71aaeebac4481903bc55c5b5b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageToOpen: {fileID: 0}
 --- !u!224 &6522002069798860136
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2906,7 +2904,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4281ba71aaeebac4481903bc55c5b5b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageToOpen: {fileID: 0}
 --- !u!222 &6992351613844305273
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3055,7 +3052,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4281ba71aaeebac4481903bc55c5b5b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageToOpen: {fileID: 0}
 --- !u!114 &7463048487845354120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3135,7 +3131,7 @@ MonoBehaviour:
         m_MethodName: ChangeCurrentPage
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 321649796911318675}
+          m_ObjectArgument: {fileID: 393040680752824679}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -3182,7 +3178,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 962058106104098521}
+  m_TargetGraphic: {fileID: 7463048487845354120}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
