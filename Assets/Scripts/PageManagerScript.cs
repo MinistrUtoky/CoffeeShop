@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 namespace PageManagement
 {
@@ -11,12 +12,17 @@ namespace PageManagement
         [SerializeField] 
         private GameObject starterPage;
 
+        [SerializeField] private Sprite testImg;
         public GameObject CurrentScene { get { return currentPage; } }
+
+        [SerializeField]public GameObject addToSubscriptionPopUp;
+
         private void Awake()
         {
             Instance = this;
             currentPage = starterPage;
-            currentPage.SetActive(true);            
+            currentPage.SetActive(true);
+            ShowAddToSubscriptionPopUp("ЙНТЩ","птнкошпноптшнкпонктпшнкопнктпшнкопкнтпшнк",testImg,10);
         }
         public void ChangeCurrentPage(GameObject newPage)
         {
@@ -35,5 +41,16 @@ namespace PageManagement
                 }
             }
         }
+        public void ShowAddToSubscriptionPopUp(string name,string description, Sprite image, float price)
+        {
+            addToSubscriptionPopUp.GetComponent<AddToSubscriptionPopUpScript>().SetValues(name,description,image,price);
+            addToSubscriptionPopUp.SetActive(true);
+            Debug.Log("Showing Add to Subscription Pop up");
+        }
+        public void HideAddToSubscriptionPopUp()
+        {
+            addToSubscriptionPopUp.SetActive(false);
+        }
     }
 }
+
