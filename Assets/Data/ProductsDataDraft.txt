@@ -1,1 +1,1 @@
-{"myList":[{"name":"222","description":"222","price":222.0},{"name":"222","description":"222","price":222.0}]}
+{"productList":[{"name":"","description":"","price":0.0}]}

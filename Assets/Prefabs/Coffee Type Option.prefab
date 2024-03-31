@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 4472595381044948389}
   - component: {fileID: 7271003342337590697}
   - component: {fileID: 4536957635915842820}
-  - component: {fileID: 6268044734508552175}
+  - component: {fileID: 5188434170298901265}
   m_Layer: 0
   m_Name: Coffee Type Option
   m_TagString: Untagged
@@ -493,9 +493,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6268044734508552175}
-        m_TargetAssemblyTypeName: PageManagement.PageChangeScript, Assembly-CSharp
-        m_MethodName: OpenOtherPage
+      - m_Target: {fileID: 5188434170298901265}
+        m_TargetAssemblyTypeName: ProductPageOpenerScript, Assembly-CSharp
+        m_MethodName: ChangePageToProductPage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -505,7 +505,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6268044734508552175
+--- !u!114 &5188434170298901265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -514,6 +514,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8882567674265114517}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4281ba71aaeebac4481903bc55c5b5b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eb84da720570e4c99a2354048a3f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  productToAdd:
+    name: product
+    description: description
+    price: 500

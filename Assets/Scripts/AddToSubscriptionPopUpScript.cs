@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -23,16 +21,8 @@ public class AddToSubscriptionPopUpScript : MonoBehaviour
         float totalPrice=price;
         quantityInputField.GetComponent<TMP_InputField>().text = quantity.ToString();
         priceVisual.GetComponent<TextMeshProUGUI>().text =totalPrice.ToString();
-        FillSubscriptionDropdown();
     }
-    public void UpdateQuantity()
-    {
-        if(int.TryParse(quantityInputField.GetComponent<TMP_InputField>().text, out quantity))
-        {
-            UpdatePriceVisual();
-        }
-    }
-    public void UpdatePriceVisual()
+    private void UpdatePriceVisual()
     {
         float totalPrice = price * quantity;
         priceVisual.GetComponent<TextMeshProUGUI>().text = totalPrice.ToString();
@@ -51,9 +41,5 @@ public class AddToSubscriptionPopUpScript : MonoBehaviour
             quantityInputField.GetComponent<TMP_InputField>().text = quantity.ToString();
             UpdatePriceVisual();
         }
-    }
-    public void FillSubscriptionDropdown()
-    {
-         //Написать метод заполнения дропдауна списком подписок, пренадлежащих текущему пользователю
     }
 }

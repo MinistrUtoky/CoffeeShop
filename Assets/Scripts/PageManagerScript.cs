@@ -1,34 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+
+using productRelated;
 using UnityEngine;
+
 namespace PageManagement
 {
-
     public class PageManagerScript : MonoBehaviour
     {
         public static PageManagerScript Instance { get; private set; }
         private GameObject currentPage;
         [SerializeField] 
         private GameObject starterPage;
-
-        [SerializeField] private Sprite testImg;
+        [SerializeField]
+        private GameObject productPage;
         public GameObject CurrentScene { get { return currentPage; } }
-
-        [SerializeField]public GameObject addToSubscriptionPopUp;
 
         private void Awake()
         {
             Instance = this;
             currentPage = starterPage;
             currentPage.SetActive(true);
-            ShowAddToSubscriptionPopUp("êîôý","ÐÔÎËÏÛÐÎÏÐÔÛÎËÐÏÎËÔÐÛÎËÏÐÎËÔÐÛÎËÏÐËÎÔÐÛÎË",testImg,10);
         }
         public void ChangeCurrentPage(GameObject newPage)
         {
             if (Input.touchCount > 0)
             {
-
                 if (Input.GetTouch(0).phase != TouchPhase.Moved)
                 {
                     Debug.Log($"Changed page to {newPage.name}");
@@ -41,15 +36,15 @@ namespace PageManagement
                 }
             }
         }
-        public void ShowAddToSubscriptionPopUp(string name,string description, Sprite image, float price)
+        public void ShowAddToSubscriptionPopUp(Product product, Sprite image)
         {
-            addToSubscriptionPopUp.GetComponent<AddToSubscriptionPopUpScript>().SetValues(name,description,image,price);
-            addToSubscriptionPopUp.SetActive(true);
+            productPage.GetComponent<AddToSubscriptionPopUpScript>().SetValues(product.name, product.description, image, product.price);
+            ChangeCurrentPage(productPage);
             Debug.Log("Showing Add to Subscription Pop up");
         }
         public void HideAddToSubscriptionPopUp()
         {
-            addToSubscriptionPopUp.SetActive(false);
+            productPage.SetActive(false);
         }
     }
 }
