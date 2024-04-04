@@ -38,7 +38,7 @@ namespace PageManagement
                 }
             }
         }
-        public void ShowAddToSubscriptionPopUp(Product product, Sprite image)
+        public void ChangePageToAddToSubscription(Product product, Sprite image)
         {
             productPage.GetComponent<AddToSubscriptionPopUpScript>().SetValues(product.name, product.description, image, product.price);
             ChangeCurrentPage(productPage);

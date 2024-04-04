@@ -521,3 +521,4 @@ MonoBehaviour:
     name: product
     description: description
     price: 500
+  productImage: {fileID: 6898328015847675275}
