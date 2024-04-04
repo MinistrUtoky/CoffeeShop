@@ -93,7 +93,10 @@ public class AddToSubscriptionPopUpScript : MonoBehaviour
                 }
                 break;
         }
-        Subscription newSubscription = new Subscription { userLogin = user.login, subscriptionStart = DateTime.Now.ToString(),
+        Subscription newSubscription = new Subscription 
+        {   
+            userLogin = user.login, 
+            subscriptionStart = DateTime.Now.ToString(),
             subscriptionEnd = nextRenewalDate.ToString(),
             productID = product.id,
             productAmount=amount
