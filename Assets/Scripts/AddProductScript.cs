@@ -10,8 +10,14 @@ using TextAsset = UnityEngine.TextAsset;
 namespace productRelated
 {
     [Serializable]
+    public class SubList<Subscription>
+    {
+        public List<Subscription> subscriptionList;
+    }
+    [Serializable]
     public struct Product
     {
+        public int id;
         public string name;
         [TextArea(10, 10)]
         public string description;
@@ -24,6 +30,8 @@ namespace productRelated
     }
     public class AddProductScript : MonoBehaviour
     {
+        [SerializeField]
+        private TMP_InputField productId;
         [SerializeField]
         private TMP_InputField productName;
         [SerializeField]
@@ -44,6 +52,7 @@ namespace productRelated
         {
             Product product = new Product
             {
+                id=products.productList.Count,
                 name = productName.text,
                 description = productDescription.text,
             };

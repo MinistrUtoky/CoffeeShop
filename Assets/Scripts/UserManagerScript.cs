@@ -8,13 +8,13 @@ namespace UserManagement {
     {
         public static UserManagerScript Instance { get; private set; }
         [Serializable]
-        enum UserType
+        public enum UserType
         {
             Buyer,
             Seller,
             Moderator 
         }
-        struct User {
+        public struct User {
             public string displayName;
             public string login; // gonna be just checked with db and proceed
             public string email;
@@ -40,6 +40,10 @@ namespace UserManagement {
             PageManagerScript.Instance.SwitchFromTechPagesToUsables();
             currentUser.login = loginField.text;
             currentUser.password = passwordField.text;        
+        }
+        public User GetCurrentUser()
+        {
+            return currentUser;
         }
     }
 }

@@ -1,1 +1,1 @@
-{"productList":[{"name":"","description":"","price":0.0}]}
+{"productList":[{"id":0,"name":"","description":"","price":0.0},{"id":1,"name":"fs","description":"asf","price":1.0}]}

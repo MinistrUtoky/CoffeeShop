@@ -1,0 +1,1 @@
+{"subscriptionList":[{"userLogin":"","subscriptionStart":"04.04.2024 12:57:18","subscriptionEnd":"04.04.2024 12:57:18","productID":0,"productAmount":1},{"userLogin":"","subscriptionStart":"04.04.2024 12:57:52","subscriptionEnd":"04.04.2024 12:57:52","productID":0,"productAmount":2}]}

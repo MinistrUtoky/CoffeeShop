@@ -519,6 +519,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   productToAdd:
     name: product
-    description: description
+    description: '
+
+      
+
+      Lorem ipsum dolor sit amet, consectetur adipiscing
+      elit. Ut vulputate neque vel porttitor iaculis. Vestibulum porttitor velit
+      sed ornare ornare. Pellentesque nec sem enim. Nullam ac lacinia augue. Suspendisse
+      porta condimentum purus. Nulla lobortis urna sed dolor ultrices, sit amet dignissim
+      leo tempor. Nulla facilisi. Suspendisse semper a tortor vitae feugiat. Duis
+      et cursus ante. Aenean ornare venenatis egestas. Cras sit amet lorem risus.
+      Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam vel pretium
+      nunc.
+
+      
+
+      Fusce eu auctor libero. Aenean vitae ligula sit amet
+      felis congue euismod. Vivamus ipsum ante, egestas nec quam fringilla, tempor
+      pretium risus. Ut malesuada, lorem ut lacinia posuere, enim neque volutpat
+      justo, in feugiat ante velit id nibh. Vivamus sit amet convallis sapien. Nam
+      rhoncus sollicitudin eros eget interdum. Ut at imperdiet sapien, a vulputate
+      nulla. Proin convallis bibendum nunc at tempor. Phasellus commodo, arcu non
+      eleifend commodo, neque arcu pellentesque lacus, eget auctor risus felis vel
+      nunc.
+
+      
+
+      Nullam eu laoreet ligula. Sed ut sem porta, ultrices
+      dolor et, placerat massa. Sed et nulla eu sapien ornare aliquet. Sed vehicula
+      porta lacus, a tincidunt mi porttitor at. Phasellus facilisis imperdiet risus
+      quis commodo. Praesent volutpat cursus orci vel imperdiet. Aliquam viverra
+      sollicitudin vehicula. Ut ex orci, tempus vel metus eu, ullamcorper ullamcorper
+      ante. Ut eget pulvinar eros, ac semper odio. Cras tincidunt arcu turpis, vitae
+      iaculis velit faucibus eget. Proin bibendum quam nisl, eget faucibus risus
+      sollicitudin eget. Aliquam erat volutpat.
+
+      
+
+      Class aptent taciti
+      sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum
+      ac sollicitudin arcu, sed feugiat purus. Class aptent taciti sociosqu ad litora
+      torquent per conubia nostra, per inceptos himenaeos. Cras non turpis et dui
+      fermentum egestas sit amet in elit. Nullam faucibus diam at lorem consequat
+      tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque
+      egestas posuere ipsum, sed faucibus ligula molestie id. Mauris mollis eu mauris
+      eget interdum.
+
+      
+
+      Quisque eget tortor augue. Nullam facilisis
+      vehicula lectus, quis sagittis augue viverra in. Fusce a placerat augue. Mauris
+      consequat libero turpis, vitae euismod dui porttitor in. Cras a enim at ipsum
+      bibendum pharetra faucibus nec dolor. Morbi tincidunt ligula vel enim consequat
+      sodales sed et purus. Fusce ultricies diam at maximus dictum. Donec in dapibus
+      ipsum, eu placerat ipsum. Nam varius odio at mauris fringilla, sed ultricies
+      orci sagittis. Duis diam nulla, auctor sed quam sed, pellentesque feugiat ipsum.
+      Pellentesque maximus ex diam, sit amet dictum est blandit et. Cras eleifend
+      sed lacus non consectetur. Morbi lacinia enim eget eros ultricies dapibus.
+      Morbi nisl dolor, rhoncus eget ultrices vitae, sollicitudin id velit. Integer
+      placerat libero a tortor placerat egestas. '
     price: 500
   productImage: {fileID: 6898328015847675275}
