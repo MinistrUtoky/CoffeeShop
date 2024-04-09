@@ -20,6 +20,7 @@ public class AddToSubscriptionPopUpScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI priceVisual;
     [SerializeField] private TMP_InputField amountInputField;
     [SerializeField] private TMP_Dropdown renewalPeriodDropdown;
+    [SerializeField] private TMP_Dropdown currencyDropdown;
 
     private void Awake()
     {
@@ -33,14 +34,15 @@ public class AddToSubscriptionPopUpScript : MonoBehaviour
         this.description.text = product.description;
         this.price = product.price;
         this.image.sprite = image;
-        float totalPrice = price;
         amountInputField.text = amount.ToString();
-        priceVisual.text = totalPrice.ToString();
+        UpdatePriceVisual();
     }
     public void UpdatePriceVisual()
     {
-        float totalPrice = price * amount;
-        priceVisual.text = totalPrice.ToString();
+        string selectedCurrency = currencyDropdown.options[currencyDropdown.value].text;
+        float totalPrice = price * amount * SubscriptionManagerScript.Instance.GetConversionRate
+            (UserManagerScript.Instance.GetCurrentUser().currency, selectedCurrency);
+        priceVisual.text = $"{totalPrice.ToString()} {selectedCurrency}s";
     }
     public void AddAmount()
     {
