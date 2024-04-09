@@ -11,5 +11,18 @@ namespace productRelated {
         public string subscriptionEnd;
         public int productID;
         public int productAmount;
+        public static bool operator ==(Subscription a, Subscription b)
+        {
+            return a.userLogin==b.userLogin
+                & a.subscriptionStart==b.subscriptionStart
+                & a.subscriptionEnd==b.subscriptionEnd
+                & a.productID==b.productID
+                & a.productAmount==b.productAmount;
+        }
+        public static bool operator !=(Subscription a, Subscription b)
+        {
+            return !(a == b);
+        }
     }
+    
 }

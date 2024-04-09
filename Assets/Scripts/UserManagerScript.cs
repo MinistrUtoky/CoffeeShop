@@ -2,11 +2,15 @@ using System;
 using UnityEngine;
 using TMPro;
 using PageManagement;
+using UnityEngine.Events;
 
 namespace UserManagement {
     public class UserManagerScript : MonoBehaviour
     {
         public static UserManagerScript Instance { get; private set; }
+
+        public UnityEvent OnLogin;
+        
         [Serializable]
         public enum UserType
         {
@@ -14,6 +18,7 @@ namespace UserManagement {
             Seller,
             Moderator 
         }
+
         public struct User {
             public string displayName;
             public string login; // gonna be just checked with db and proceed
@@ -39,7 +44,8 @@ namespace UserManagement {
         {
             PageManagerScript.Instance.SwitchFromTechPagesToUsables();
             currentUser.login = loginField.text;
-            currentUser.password = passwordField.text;        
+            currentUser.password = passwordField.text;
+            OnLogin?.Invoke();
         }
         public User GetCurrentUser()
         {

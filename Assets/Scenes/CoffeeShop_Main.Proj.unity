@@ -1243,6 +1243,54 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7110849576775709956, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
   m_PrefabInstance: {fileID: 3109694272382718476}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1144914768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1144914769}
+  - component: {fileID: 1144914770}
+  m_Layer: 0
+  m_Name: SubscriptionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1144914769
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144914768}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2136240418}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1144914770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144914768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18190de1635b4da41bf19b98f61710ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnSubscriptionRelatedChanges:
+    m_PersistentCalls:
+      m_Calls: []
+  subscriptionsJsonFile: {fileID: 4900000, guid: ef0e0447c4926904f96497e6b958960a, type: 3}
 --- !u!114 &1147594273 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1108857372888482051, guid: 28cd614c99688554993625fb2e9524ba, type: 3}
@@ -1536,6 +1584,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0562416bc87ed7643bd4cdef5567957f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnLogin:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1733588983
 GameObject:
   m_ObjectHideFlags: 0
@@ -2093,7 +2144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1733588984}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -2489,6 +2540,7 @@ Transform:
   m_Children:
   - {fileID: 1903063127}
   - {fileID: 1680455830}
+  - {fileID: 1144914769}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &79029084769312181
@@ -2679,15 +2731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77cbff4e1e4c6114c8427bde6516b21d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subscriptionJsonFile: {fileID: 4900000, guid: ef0e0447c4926904f96497e6b958960a, type: 3}
-  productJsonFile: {fileID: 4900000, guid: 4bebe8dcb4950834aa61e97c09d82271, type: 3}
-  SubscriptionButtonPrefab: {fileID: 4638177113591067355, guid: 27106d67c461d9e43a309ef26ef09731, type: 3}
+  SubscriptionButtonPrefab: {fileID: 3772315794238400370, guid: 9cf534dc5bba2154e82be59ca6564715, type: 3}
   SubscriptionScrollViewContent: {fileID: 1733588984}
-  subscriptions:
-    subscriptionList: []
-  products:
-    productList: []
-  userSubscriptions: []
 --- !u!1 &706884997008933347
 GameObject:
   m_ObjectHideFlags: 0
@@ -3284,8 +3329,16 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2485475684906030333, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485475684906030333, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485475684906030333, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -281.1586
+      value: 75.4818
       objectReference: {fileID: 0}
     - target: {fileID: 2485475684906030333, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3293,7 +3346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2485475684906030333, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -60
+      value: -73.679794
       objectReference: {fileID: 0}
     - target: {fileID: 5897641992497267951, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
       propertyPath: m_Name
@@ -4621,19 +4674,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4407952554370139749}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1903063128}
-        m_TargetAssemblyTypeName: PageManagement.PageManagerScript, Assembly-CSharp
-        m_MethodName: ChangeCurrentPage
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 393040680752824679}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &7584275814098856931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4757,6 +4798,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 393040680752824679}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 393040680752824680}
+        m_TargetAssemblyTypeName: SubscriptionsPageScript, Assembly-CSharp
+        m_MethodName: UpdateSubscriptionButtons
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

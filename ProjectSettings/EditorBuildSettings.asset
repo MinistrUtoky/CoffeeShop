@@ -8,5 +8,8 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/CoffeeShop_Main.Proj.unity
+    guid: 432e64b515a71b348acc55e6eb6dc3bb
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 3e39616634feaf04480f273035e7b4b3, type: 2}

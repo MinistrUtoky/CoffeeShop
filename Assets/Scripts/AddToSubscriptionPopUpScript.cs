@@ -20,18 +20,10 @@ public class AddToSubscriptionPopUpScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI priceVisual;
     [SerializeField] private TMP_InputField amountInputField;
     [SerializeField] private TMP_Dropdown renewalPeriodDropdown;
-    [SerializeField] public TextAsset jsonFile;
-    [SerializeField] private SubList<Subscription> subscriptions;
 
     private void Awake()
     {
-        subscriptions = JsonUtility.FromJson<SubList<Subscription>>(jsonFile.text);
-        Debug.Log(subscriptions==null);
-        if (subscriptions == null) subscriptions = new SubList<Subscription>();
-        if (subscriptions.subscriptionList==null)
-        {
-            subscriptions.subscriptionList = new List<Subscription>();
-        }
+        
     }
     public void SetValues(productRelated.Product product ,Sprite image)
     {
@@ -69,28 +61,23 @@ public class AddToSubscriptionPopUpScript : MonoBehaviour
     {
         UserManagement.UserManagerScript.User user = UserManagerScript.Instance.GetCurrentUser();
         string renewalPeriod = renewalPeriodDropdown.options[renewalPeriodDropdown.value].text;
-        DateTime nextRenewalDate = DateTime.Now;
+        DateTime nextRenewalDate;
         switch (renewalPeriod)
         {
             case "Day":
-                {
-                    nextRenewalDate.AddDays(1);
-                }
+                nextRenewalDate=DateTime.Now.AddDays(1);
                 break;
             case "Week":
-                {
-                    nextRenewalDate.AddDays(7);
-                }
+                nextRenewalDate=DateTime.Now.AddDays(7);
                 break;
             case "Month":
-                {
-                    nextRenewalDate.AddDays(31);
-                }
+                nextRenewalDate=DateTime.Now.AddDays(31);
                 break;
             case "Year":
-                {
-                    nextRenewalDate.AddDays(365);
-                }
+                nextRenewalDate = DateTime.Now.AddDays(365);
+                break;
+            default:
+                nextRenewalDate= DateTime.Now;
                 break;
         }
         Subscription newSubscription = new Subscription 
@@ -101,15 +88,7 @@ public class AddToSubscriptionPopUpScript : MonoBehaviour
             productID = product.id,
             productAmount=amount
         };
-        Debug.Log(subscriptions.subscriptionList);
-        subscriptions.subscriptionList.Add(newSubscription);
-        SaveSubscriptionIntoJson();
+        SubscriptionManagerScript.Instance.AddSubscription(newSubscription);
     }
-    private void SaveSubscriptionIntoJson()
-    {
-        string jsonNew = JsonUtility.ToJson(subscriptions);
-        Debug.Log("Added to subscriptions JSON " + jsonNew);
-        File.WriteAllText(AssetDatabase.GetAssetPath(jsonFile), jsonNew);
-        EditorUtility.SetDirty(jsonFile);
-    }
+
 }

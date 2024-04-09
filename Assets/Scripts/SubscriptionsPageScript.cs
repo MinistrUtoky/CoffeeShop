@@ -5,59 +5,38 @@ using UnityEngine;
 using productRelated;
 using UserManagement;
 using System;
+using UnityEngine.UI;
 
 public class SubscriptionsPageScript : MonoBehaviour
 {
-    [SerializeField] public TextAsset subscriptionJsonFile;
-    [SerializeField] public TextAsset productJsonFile;
     [SerializeField] private Transform SubscriptionButtonPrefab;
     [SerializeField] private Transform SubscriptionScrollViewContent;
-    [SerializeField] private SubList<Subscription> subscriptions;
-    [SerializeField] private MyList<Product> products;
-    [SerializeField] private List<Subscription> userSubscriptions;
-    [SerializeField] private UserManagement.UserManagerScript.User currentUser;
     private void Awake()
     {
-        products = JsonUtility.FromJson<MyList<Product>>(productJsonFile.text);
-        if (products == null) products = new MyList<Product>();
-        if (products.productList == null)
-        {
-            products.productList = new List<Product>();
-        }
-        subscriptions = JsonUtility.FromJson<SubList<Subscription>>(subscriptionJsonFile.text);
-        Debug.Log(subscriptions == null);
-        if (subscriptions == null) subscriptions = new SubList<Subscription>();
-        if (subscriptions.subscriptionList == null)
-        {
-            subscriptions.subscriptionList = new List<Subscription>();
-        }
-        currentUser = UserManagerScript.Instance.GetCurrentUser();
-        userSubscriptions = GetUserSubscriptions();
-
+        
     }
     void Start()
     {
-        foreach (var subscription in userSubscriptions)
-        {
-            var subscriptionButton = Instantiate(SubscriptionButtonPrefab,SubscriptionScrollViewContent);
-            subscriptionButton.GetComponent<SubscriptionButtonScript>().SetValues(products.productList[subscription.productID].name,subscription.subscriptionEnd,subscription.productAmount);
-            subscriptionButton.gameObject.SetActive(true);
-        }
+        
     }
     void Update()
     {
         
     }
-    private List<Subscription> GetUserSubscriptions()
+    public void UpdateSubscriptionButtons()
     {
-        List<Subscription> userSubscriptions = new List<Subscription>();
-        foreach (Subscription i in subscriptions.subscriptionList)
+        while(SubscriptionScrollViewContent.childCount>0)
         {
-            if (i.userLogin == currentUser.login)
-            {
-                userSubscriptions.Add(i);
-            }
+            Destroy(SubscriptionScrollViewContent.GetChild(0));
         }
-        return userSubscriptions;
+        List<Subscription> currentUserSubscriptionList = SubscriptionManagerScript.Instance.GetCurrentUserSubscriptionList();
+        foreach (var subscription in currentUserSubscriptionList)
+        {
+            var subscriptionButton = Instantiate(SubscriptionButtonPrefab, SubscriptionScrollViewContent);
+            subscriptionButton.GetComponent<SubscriptionButtonScript>().SetValues(subscription);
+            // Даже если пишем GetComponentInChildren оно добавляет лисенер в обычную кнопку(((
+            subscriptionButton.GetComponent<Button>().onClick.AddListener(()=>subscriptionButton.GetComponent<SubscriptionButtonScript>().Click());
+            subscriptionButton.gameObject.SetActive(true);
+        }
     }
 }
