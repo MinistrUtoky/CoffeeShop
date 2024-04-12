@@ -1308,6 +1308,7 @@ RectTransform:
   - {fileID: 230246664}
   - {fileID: 1534417353}
   - {fileID: 1316808863}
+  - {fileID: 1878466988}
   m_Father: {fileID: 1949706632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5073,14 +5074,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1878466988}
+  m_Children: []
   m_Father: {fileID: 383636287}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.23500001}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.57600003}
-  m_AnchoredPosition: {x: 8.5000305, y: -11.761963}
-  m_SizeDelta: {x: 17, y: 0.29016113}
+  m_AnchoredPosition: {x: 8.5000305, y: 163.68506}
+  m_SizeDelta: {x: 17, y: -350.6041}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1316808864
 MonoBehaviour:
@@ -7391,17 +7391,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878466987}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1316808863}
+  m_Father: {fileID: 383636287}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0006713867, y: 0.0012817383}
-  m_SizeDelta: {x: -0.9000244, y: -0.48999023}
+  m_AnchoredPosition: {x: 8.500732, y: -903.6402}
+  m_SizeDelta: {x: 16.099976, y: 512.2527}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1878466989
 MonoBehaviour:
@@ -7440,11 +7440,18 @@ MonoBehaviour:
 
     New Text
 
+
+
+
+
+
+    New Text
+
     New Text
 
     New Text
 
-    New Text'
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7493,7 +7500,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_enableExtraPadding: 0
+  m_enableExtraPadding: 1
   checkPaddingRequired: 0
   m_isRichText: 1
   m_parseCtrlCharacters: 1
