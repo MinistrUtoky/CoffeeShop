@@ -8,21 +8,22 @@ namespace UserManagement
         [SerializeField]
         private TMP_InputField loginField;
         [SerializeField]
-        private TMP_InputField registerFieldIfExists;
+        private TMP_InputField emailFieldIfExists;
         [SerializeField]
         private TMP_InputField passwordField;
         private void Start()
         {
             loginField.lineType = TMP_InputField.LineType.SingleLine;
-            if (registerFieldIfExists != null)
+            if (emailFieldIfExists != null)
             {
-                registerFieldIfExists.contentType = TMP_InputField.ContentType.EmailAddress;
-                registerFieldIfExists.lineType = TMP_InputField.LineType.SingleLine;
+                emailFieldIfExists.contentType = TMP_InputField.ContentType.EmailAddress;
+                emailFieldIfExists.lineType = TMP_InputField.LineType.SingleLine;
             }
             passwordField.contentType = TMP_InputField.ContentType.Password;
             passwordField.lineType = TMP_InputField.LineType.SingleLine;
         }
         public void Login() => UserManagerScript.Instance.Login(loginField, passwordField);
+        public void Register() => UserManagerScript.Instance.Register(loginField, emailFieldIfExists, passwordField);
        
     }
 }

@@ -3,36 +3,19 @@ using UnityEngine;
 using TMPro;
 using PageManagement;
 using UnityEngine.Events;
+using static Assets.Scripts.Database.DataStructures;
 
 namespace UserManagement {
     public class UserManagerScript : MonoBehaviour
     {
         public static UserManagerScript Instance { get; private set; }
         [HideInInspector]
-
         public UnityEvent OnLogin;
         
-        [Serializable]
-        public enum UserType
-        {
-            Buyer,
-            Seller,
-            Moderator 
-        }
-
-        public struct User {
-            public string displayName;
-            public string login; // gonna be just checked with db and proceed
-            public string email;
-            public string password; // same as login :D  
-            public UserType type;
-            public float currentBalance; // in some gp idk
-            public string currency;
-        }
-
-        private User currentUser = new User
+        private UserData currentUser = new UserData
         {
             displayName = "Nataniel", //from db
+            email = "MisterTwister@rambler.ru",
             login = "SmokeDonutsBananaPizza",
             password = "not_a_password",
             type = UserType.Buyer     //from db
@@ -43,13 +26,38 @@ namespace UserManagement {
         }
         public void Login(TMP_InputField loginField, TMP_InputField passwordField, string currency="Euro")
         {
-            PageManagerScript.Instance.SwitchFromTechPagesToUsables();
-            currentUser.login = loginField.text;
-            currentUser.password = passwordField.text;
-            currentUser.currency = currency;
-            OnLogin?.Invoke();
+            if (DatabaseManager.Instance.AreLoginAndPasswordRight(loginField.text, passwordField.text))
+            {
+                PageManagerScript.Instance.SwitchFromTechPagesToUsables();
+                currentUser.login = loginField.text;
+                currentUser.password = passwordField.text;
+                currentUser.currency = currency;
+                OnLogin?.Invoke();
+            }
+            else
+                Debug.Log("Such user does not exist");
         }
-        public User GetCurrentUser()
+        public void Register(TMP_InputField loginField, TMP_InputField emailField, TMP_InputField passwordField, UserType userType=UserType.Buyer, string currency= "Euro")
+        {
+            string errorMessage = "";
+            UserData user = new UserData()
+            {
+                login = loginField.text,
+                email = emailField.text,
+                password = passwordField.text,
+                type = userType,
+                currency = currency
+            };
+            string basicDisplayName;
+            if (DatabaseManager.Instance.TryAddUser(user, out errorMessage, out basicDisplayName))
+            {
+                user.displayName = basicDisplayName;
+                Login(loginField, passwordField);
+            }
+            else
+                Debug.Log(errorMessage);
+        }
+        public UserData GetCurrentUser()
         {
             return currentUser;
         }

@@ -4,30 +4,12 @@ using System.IO;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using static Assets.Scripts.Database.DataStructures;
 using Debug = UnityEngine.Debug;
 using TextAsset = UnityEngine.TextAsset;
 
 namespace productRelated
 {
-    [Serializable]
-    public class SubList<Subscription>
-    {
-        public List<Subscription> subscriptionList;
-    }
-    [Serializable]
-    public struct Product
-    {
-        public int id;
-        public string name;
-        [TextArea(10, 10)]
-        public string description;
-        public float price;
-    }
-    [Serializable]
-    public class MyList<Product>
-    {
-        public List<Product> productList;
-    }
     public class AddProductScript : MonoBehaviour
     {
         [SerializeField]
@@ -52,12 +34,12 @@ namespace productRelated
         {
             Product product = new Product
             {
-                id=products.productList.Count,
+                id=products.list.Count,
                 name = productName.text,
                 description = productDescription.text,
             };
             float.TryParse(productPrice.text, out product.price);
-            products.productList.Add(product);
+            products.list.Add(product);
             SaveProductIntoJson();
         }
         private void SaveProductIntoJson()

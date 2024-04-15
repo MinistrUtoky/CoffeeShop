@@ -1,11 +1,7 @@
-using productRelated;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using productRelated;
-using UserManagement;
-using System;
 using UnityEngine.UI;
+using static Assets.Scripts.Database.DataStructures;
 
 public class SubscriptionsPageScript : MonoBehaviour
 {

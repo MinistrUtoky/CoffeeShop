@@ -4,16 +4,13 @@ using UnityEngine.UI;
 using productRelated;
 using UserManagement;
 using System;
-using System.IO;
-using Unity.VisualScripting;
-using UnityEditor;
-using System.Collections.Generic;
+using static Assets.Scripts.Database.DataStructures;
 
 public class AddToSubscriptionPopUpScript : MonoBehaviour
 {
     private float price;
     private int amount=1;
-    private productRelated.Product product;
+    private Product product;
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI productName;
     [SerializeField] private Image image;
@@ -26,7 +23,7 @@ public class AddToSubscriptionPopUpScript : MonoBehaviour
     {
         
     }
-    public void SetValues(productRelated.Product product ,Sprite image)
+    public void SetValues(Product product ,Sprite image)
     {
         this.product= product;
         amount = 1;
@@ -61,7 +58,7 @@ public class AddToSubscriptionPopUpScript : MonoBehaviour
     }
     public void AddSubscription()
     {
-        UserManagement.UserManagerScript.User user = UserManagerScript.Instance.GetCurrentUser();
+        UserData user = UserManagerScript.Instance.GetCurrentUser();
         string renewalPeriod = renewalPeriodDropdown.options[renewalPeriodDropdown.value].text;
         DateTime nextRenewalDate;
         switch (renewalPeriod)

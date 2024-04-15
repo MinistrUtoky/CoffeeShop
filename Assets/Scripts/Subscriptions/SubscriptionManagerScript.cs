@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UserManagement;
-using Product = productRelated.Product;
+using static Assets.Scripts.Database.DataStructures;
 
 public class SubscriptionManagerScript : MonoBehaviour
 {
@@ -49,14 +49,14 @@ public class SubscriptionManagerScript : MonoBehaviour
     }
     public void AddSubscription(Subscription subscription)
     {
-        allSubscriptionList.productList.Add(subscription);
+        allSubscriptionList.list.Add(subscription);
         UpdateSubscriptionJsonFile();
         UpdateCurrentUserSubscriptionList();
         OnSubscriptionRelatedChanges?.Invoke();
     }
     public void RemoveSubscription(Subscription subscription)
     {
-        allSubscriptionList.productList.Remove(subscription);
+        allSubscriptionList.list.Remove(subscription);
         UpdateSubscriptionJsonFile();
         UpdateCurrentUserSubscriptionList();
         OnSubscriptionRelatedChanges?.Invoke();
@@ -76,12 +76,12 @@ public class SubscriptionManagerScript : MonoBehaviour
         if (allSubscriptionList == null)
             allSubscriptionList = new MyList<Subscription>();
 
-        if (allSubscriptionList.productList == null)
-            allSubscriptionList.productList = new List<Subscription>();*/
+        if (allSubscriptionList.list == null)
+            allSubscriptionList.list = new List<Subscription>();*/
 
         currentUserSubscriptionList = new List<Subscription>();
         var user = UserManagerScript.Instance.GetCurrentUser();
-        foreach (Subscription i in allSubscriptionList.productList)
+        foreach (Subscription i in allSubscriptionList.list)
         {
             if (i.userLogin == user.login)
             {
@@ -95,16 +95,16 @@ public class SubscriptionManagerScript : MonoBehaviour
     }
     public Product GetProduct(int id)
     {
-        return allProductList.productList[id];
+        return allProductList.list[id];
     }
     public void AddNewProduct(Product newProduct)
     {
-        allProductList.productList.Add(newProduct);
+        allProductList.list.Add(newProduct);
         UpdateProductJsonFile();
     } 
     public void RemoveProduct(Product product)
     {
-        allProductList.productList.Remove(product);
+        allProductList.list.Remove(product);
         UpdateProductJsonFile();
     }
     private void GetProductsFromJson()
@@ -112,9 +112,9 @@ public class SubscriptionManagerScript : MonoBehaviour
         allProductList = JsonUtility.FromJson<MyList<Product>>(productJsonFile.text);
         if (allProductList == null) 
             allProductList = new MyList<Product>();
-        if (allProductList.productList == null)
+        if (allProductList.list == null)
         {
-            allProductList.productList = new List<Product>();
+            allProductList.list = new List<Product>();
         }
     }
     private void GetSubscriptionsFromJson()
@@ -123,8 +123,8 @@ public class SubscriptionManagerScript : MonoBehaviour
         if (allSubscriptionList == null)
             allSubscriptionList = new MyList<Subscription>();
 
-        if (allSubscriptionList.productList == null)
-            allSubscriptionList.productList = new List<Subscription>();
+        if (allSubscriptionList.list == null)
+            allSubscriptionList.list = new List<Subscription>();
         UpdateCurrentUserSubscriptionList();
     }
     private void UpdateSubscriptionJsonFile()

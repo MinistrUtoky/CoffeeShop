@@ -1,1 +1,1 @@
-{"productList":[{"id":0,"name":"cofe","description":"Awawawawa","price":10.0},{"id":1,"name":"fs","description":"asf","price":1.0},{"id":2,"name":"asdasdasd","description":"qweqweqwe","price":55.0}]}
+{"list":[{"id":0,"name":"cofe","description":"Awawawawa","price":10.0},{"id":1,"name":"fs","description":"asf","price":1.0},{"id":2,"name":"asdasdasd","description":"qweqweqwe","price":55.0},{"id":3,"name":"","description":"qwerqwrtqwr","price":0.0},{"id":4,"name":"425q435","description":"wewrqer4","price":0.0},{"id":5,"name":"351351","description":"ewqrqrw","price":0.0}]}

@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using productRelated;
 using UnityEngine.UI;
 using PageManagement;
 using Unity.VisualScripting;
-using Product = productRelated.Product;
+using Product = Assets.Scripts.Database.DataStructures.Product;
 
 public class ProductPageOpenerScript : MonoBehaviour
 {

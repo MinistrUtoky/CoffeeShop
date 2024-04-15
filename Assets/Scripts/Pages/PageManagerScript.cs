@@ -1,5 +1,6 @@
 using productRelated;
 using UnityEngine;
+using static Assets.Scripts.Database.DataStructures;
 
 namespace PageManagement
 {

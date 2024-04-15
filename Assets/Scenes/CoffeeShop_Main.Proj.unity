@@ -270,6 +270,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2093595399}
     m_Modifications:
+    - target: {fileID: 515947457934579969, guid: fb2eb7f9c9ac74f4d833087f28cf501f, type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 950115644703048209, guid: fb2eb7f9c9ac74f4d833087f28cf501f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1164,6 +1168,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8336456468752820422, guid: 91d5c4cbe214f734ca0a2f0993bcd6dd, type: 3}
   m_PrefabInstance: {fileID: 1909711180}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1032999340 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4804342017931624680, guid: 28cd614c99688554993625fb2e9524ba, type: 3}
+  m_PrefabInstance: {fileID: 4975600313585791313}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1105389566 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7110849576775709956, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
@@ -1391,17 +1406,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 519420032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1602605834 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7358976217879699163, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-  m_PrefabInstance: {fileID: 3109694272382718476}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eac4477626e464447a68c1ae588b92cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1624442597
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,7 +1718,7 @@ MonoBehaviour:
   productPrice: {fileID: 308881522}
   jsonFile: {fileID: 4900000, guid: 4bebe8dcb4950834aa61e97c09d82271, type: 3}
   products:
-    productList: []
+    list: []
 --- !u!1 &1898988825
 GameObject:
   m_ObjectHideFlags: 0
@@ -3114,85 +3118,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1898988826}
     m_Modifications:
-    - target: {fileID: 243220313223134856, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 243220313223134856, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1602605834}
-    - target: {fileID: 243220313223134856, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Login
-      objectReference: {fileID: 0}
-    - target: {fileID: 243220313223134856, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UserManagement.LoginerScript, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 243220313223134856, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 394547435211319204, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_text
-      value: account name...
-      objectReference: {fileID: 0}
-    - target: {fileID: 394547435211319204, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 2073816519577440634, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_text
-      value: 'password:'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485475684906030333, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485475684906030333, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485475684906030333, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 75.4818
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485475684906030333, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485475684906030333, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -73.679794
-      objectReference: {fileID: 0}
-    - target: {fileID: 5388696577624544698, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_text
-      value: password...
-      objectReference: {fileID: 0}
-    - target: {fileID: 5388696577624544698, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_fontSize
-      value: 44
-      objectReference: {fileID: 0}
-    - target: {fileID: 5388696577624544698, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5388696577624544698, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 512
-      objectReference: {fileID: 0}
     - target: {fileID: 5897641992497267951, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
       propertyPath: m_Name
       value: LoginPageHolder
       objectReference: {fileID: 0}
-    - target: {fileID: 5897641992497267951, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 6439146271926896451, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6712770346473596962, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 512
+    - target: {fileID: 6439146271926896451, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
+      propertyPath: m_fontSize
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 7110849576775709956, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
       propertyPath: m_Pivot.x
@@ -3274,14 +3210,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7275107667477754050, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7275107667477754050, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_enableWordWrapping
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7564669023592919691, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3290,14 +3218,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 512189733}
-    - target: {fileID: 9111141308191193705, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_text
-      value: "\u200B"
-      objectReference: {fileID: 0}
-    - target: {fileID: 9111141308191193705, guid: e1e1423f6c18a4348a4e04fc80799d87, type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 512
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3773,22 +3693,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1898988826}
     m_Modifications:
-    - target: {fileID: 539129826795833747, guid: 28cd614c99688554993625fb2e9524ba, type: 3}
-      propertyPath: m_text
-      value: password...
-      objectReference: {fileID: 0}
     - target: {fileID: 2047874908967229638, guid: 28cd614c99688554993625fb2e9524ba, type: 3}
       propertyPath: m_Name
       value: RegistrationPageHolder
       objectReference: {fileID: 0}
-    - target: {fileID: 2047874908967229638, guid: 28cd614c99688554993625fb2e9524ba, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2127937894497311458, guid: 28cd614c99688554993625fb2e9524ba, type: 3}
-      propertyPath: m_text
-      value: adress@email.com...
-      objectReference: {fileID: 0}
+    - target: {fileID: 3231091122585674259, guid: 28cd614c99688554993625fb2e9524ba, type: 3}
+      propertyPath: emailFieldIfExists
+      value: 
+      objectReference: {fileID: 1032999340}
     - target: {fileID: 3395134985255299373, guid: 28cd614c99688554993625fb2e9524ba, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3869,9 +3781,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5245171331776428941, guid: 28cd614c99688554993625fb2e9524ba, type: 3}
+    - target: {fileID: 6834973341513516596, guid: 28cd614c99688554993625fb2e9524ba, type: 3}
       propertyPath: m_text
-      value: account name...
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660774884243729016, guid: 28cd614c99688554993625fb2e9524ba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Register
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

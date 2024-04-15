@@ -1,9 +1,8 @@
 using productRelated;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using static Assets.Scripts.Database.DataStructures;
 
 public class SubscriptionButtonScript : MonoBehaviour
 {
@@ -20,16 +19,16 @@ public class SubscriptionButtonScript : MonoBehaviour
     public void SetValues(Subscription subscription)
     {
         //рн фе яюлне, бшохкхрэ опх оепбни фе бнглнфмнярх!!!
-        MyList<productRelated.Product>products = JsonUtility.FromJson<MyList<productRelated.Product>>(productJsonFile.text);
-        if (products == null) products = new MyList<productRelated.Product>();
-        if (products.productList == null)
+        MyList<Product>products = JsonUtility.FromJson<MyList<Product>>(productJsonFile.text);
+        if (products == null) products = new MyList<Product>();
+        if (products.list == null)
         {
-            products.productList = new List<productRelated.Product>();
+            products.list = new List<Product>();
         }
         try
         {
             this._subscription = subscription;
-            this.productName.text = products.productList[subscription.productID].name;
+            this.productName.text = products.list[subscription.productID].name;
             this.subscriptionEndDate.text = subscription.subscriptionEnd;
             this.productAmount.text = subscription.productAmount.ToString();
         }
