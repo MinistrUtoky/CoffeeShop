@@ -7,14 +7,13 @@ using Product = Assets.Scripts.Database.DataStructures.Product;
 public class ProductPageOpenerScript : MonoBehaviour
 {
     private PageManagerScript pageManager;
-    [SerializeField]
     private Product productToAdd;
-    [SerializeField]
-    private Image productImage;
+    [SerializeField] private Image productImage;
 
     private void Start()
     {
-        pageManager = GameObject.FindWithTag("PageManager").GetComponent<PageManagerScript>();
+        pageManager = PageManagerScript.Instance;
+        productToAdd = GetComponent<ProductButtonScript>().GetProduct();
     }
     public void ChangePageToProductPage()
         => pageManager.ChangePageToAddToSubscription(productToAdd, 

@@ -124,7 +124,26 @@ namespace Assets.Scripts.Database
             public string name;
             [TextArea(10, 10)]
             public string description;
+            public string pictureURL;
             public float price;
+
+            public override bool Equals(object obj)
+            {
+                return obj is Product product &&
+                       id == product.id &&
+                       name == product.name &&
+                       description == product.description &&
+                       pictureURL == product.pictureURL &&
+                       price == product.price;
+            }
+            public static bool operator == (Product product1, Product product2)
+            {
+                return product1.Equals(product2);
+            }
+            public static bool operator != (Product product1, Product product2)
+            {
+                return !(product1==product2);
+            }
         }
         [Serializable]
         public struct Subscription
@@ -134,7 +153,7 @@ namespace Assets.Scripts.Database
             public string subscriptionEnd;
             public int productID;
             public int productAmount;
-            public static bool operator ==(Subscription a, Subscription b)
+            public static bool operator == (Subscription a, Subscription b)
             {
                 return a.userLogin == b.userLogin
                     & a.subscriptionStart == b.subscriptionStart
@@ -142,7 +161,7 @@ namespace Assets.Scripts.Database
                     & a.productID == b.productID
                     & a.productAmount == b.productAmount;
             }
-            public static bool operator !=(Subscription a, Subscription b)
+            public static bool operator != (Subscription a, Subscription b)
             {
                 return !(a == b);
             }

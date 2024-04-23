@@ -1,4 +1,5 @@
 using productRelated;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -39,6 +40,7 @@ public class SubscriptionManagerScript : MonoBehaviour
     private void Start()
     {
         UserManagerScript.Instance.OnLogin.AddListener(UserManagerScript_OnLogin);
+        //GetProductsFromJson();
     }
 
     private void UserManagerScript_OnLogin()
@@ -97,6 +99,14 @@ public class SubscriptionManagerScript : MonoBehaviour
     {
         return allProductList.list[id];
     }
+    public Product GetProduct(Product product)
+    {
+        return allProductList.list.Find(x => x == product); 
+    }
+    public List<Product> GetProductList()
+    {
+        return allProductList.list;
+    }
     public void AddNewProduct(Product newProduct)
     {
         allProductList.list.Add(newProduct);
@@ -116,6 +126,7 @@ public class SubscriptionManagerScript : MonoBehaviour
         {
             allProductList.list = new List<Product>();
         }
+        Debug.Log("Got products from JSON file");
     }
     private void GetSubscriptionsFromJson()
     {
@@ -149,6 +160,6 @@ public class SubscriptionManagerScript : MonoBehaviour
         currencyRates.Add("Dollar", 1.09f);
         currencyRates.Add("Ruble",100.85f);
         currencyRates.Add("Yuan",7.85f);
-        Debug.Log(currencyRates);
     }
+
 }

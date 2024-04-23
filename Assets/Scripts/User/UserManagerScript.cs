@@ -28,10 +28,11 @@ namespace UserManagement {
         {
             if (DatabaseManager.Instance.AreLoginAndPasswordRight(loginField.text, passwordField.text))
             {
-                PageManagerScript.Instance.SwitchFromTechPagesToUsables();
                 currentUser.login = loginField.text;
                 currentUser.password = passwordField.text;
                 currentUser.currency = currency;
+                PageManagerScript.Instance.SwitchFromTechPagesToUsables();
+                Debug.Log(currentUser.currency);
                 OnLogin?.Invoke();
             }
             else

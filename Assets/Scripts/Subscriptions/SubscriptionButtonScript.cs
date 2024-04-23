@@ -12,23 +12,14 @@ public class SubscriptionButtonScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI subscriptionEndDate;
     [SerializeField] private TextMeshProUGUI productAmount;
 
-    //бпелеммн, бшохкхрэ йнцдю ядекюел яоняна онксвюрэ опндсйрш ксвье, лш ме асдел упюмхрэ б йюфдни ймнойе яяшкйс мю тюик я опндсйрюлх
-    [SerializeField] public TextAsset productJsonFile;
 
     public Subscription Subscription { get { return _subscription; } }
     public void SetValues(Subscription subscription)
     {
-        //рн фе яюлне, бшохкхрэ опх оепбни фе бнглнфмнярх!!!
-        MyList<Product>products = JsonUtility.FromJson<MyList<Product>>(productJsonFile.text);
-        if (products == null) products = new MyList<Product>();
-        if (products.list == null)
-        {
-            products.list = new List<Product>();
-        }
         try
         {
             this._subscription = subscription;
-            this.productName.text = products.list[subscription.productID].name;
+            this.productName.text = SubscriptionManagerScript.Instance.GetProduct(subscription.productID).name;
             this.subscriptionEndDate.text = subscription.subscriptionEnd;
             this.productAmount.text = subscription.productAmount.ToString();
         }
