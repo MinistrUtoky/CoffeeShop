@@ -40,12 +40,10 @@ public class SubscriptionManagerScript : MonoBehaviour
     private void Start()
     {
         UserManagerScript.Instance.OnLogin.AddListener(UserManagerScript_OnLogin);
-        //GetProductsFromJson();
     }
 
     private void UserManagerScript_OnLogin()
     {
-        Debug.Log(UserManagerScript.Instance.GetCurrentUser().login);
         _currentCurrency = UserManagerScript.Instance.GetCurrentUser().currency;
         GetSubscriptionsFromJson();
     }

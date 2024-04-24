@@ -35,7 +35,7 @@ namespace productRelated
                 description = productDescription.text,
                 price = numPrice,
                 //Временное решение пока не поменял меню добавления товара
-                pictureURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Latte_and_dark_coffee.jpg/1920px-Latte_and_dark_coffee.jpg",
+                pictureURL = "https://cliparting.com/wp-content/uploads/2018/03/cool-pictures-2018-3.jpg",
             };
             SubscriptionManagerScript.Instance.AddNewProduct(product);
         }

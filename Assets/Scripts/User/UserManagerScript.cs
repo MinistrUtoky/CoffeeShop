@@ -32,7 +32,6 @@ namespace UserManagement {
                 currentUser.password = passwordField.text;
                 currentUser.currency = currency;
                 PageManagerScript.Instance.SwitchFromTechPagesToUsables();
-                Debug.Log(currentUser.currency);
                 OnLogin?.Invoke();
             }
             else

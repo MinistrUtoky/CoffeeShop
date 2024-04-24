@@ -52,7 +52,6 @@ namespace PageManagement
         public void SwitchFromTechPagesToUsables()
         {
             ChangeCurrentPage(mainPage);
-            mainPage.GetComponent<MainPageScript>().UpdateProductButtons();
             techPagesSeparator.SetActive(false);
         }
     }
