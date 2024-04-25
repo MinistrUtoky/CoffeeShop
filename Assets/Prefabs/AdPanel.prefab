@@ -269,6 +269,8 @@ MonoBehaviour:
     adEmbeddedLink: https://mycorrhiza.wiki/
   - video: {fileID: 32900000, guid: a724865bdb3286f4e85a047bff7ccac2, type: 3}
     adEmbeddedLink: https://mutoky.itch.io/
+  - video: {fileID: 32900000, guid: 2f00d1eb602de7941afdac611fbba1d9, type: 3}
+    adEmbeddedLink: https://freeasphosting.net/
   videoChangeTimeInSeconds: 5
   masterVideoPlayer: {fileID: 4507858812808316527}
 --- !u!328 &4507858812808316527

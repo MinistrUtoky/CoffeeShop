@@ -7,10 +7,14 @@ using static Assets.Scripts.Database.DataStructures;
 public class DatabaseManager : MonoBehaviour
 {
     private static bool initiated = false;
-    public static void Initiate(string dataPath)
+    private void OnApplicationQuit()
     {
-        MSSQLServerConnector.cn_String = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + dataPath + ";Integrated Security=True;Connect Timeout=30";
-
+        MSSQLServerConnector.CloseDBConnection();
+    }
+    public static void Initiate()//string dataPath)
+    {
+        MSSQLServerConnector.cn_String = "Data Source=sql.bsite.net\\MSSQL2016;Persist Security Info=True;User ID=mutoky_;Password=123;";//"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + dataPath + ";Integrated Security=True;Connect Timeout=30;Initial Catalog=mainDB;";
+        Debug.Log(MSSQLServerConnector.cn_String);
         foreach (string d in MSSQLServerConnector.GetColumnNames("app_users"))
             Debug.Log(d); // just testing db to see that it works        
         initiated = true;
@@ -20,7 +24,7 @@ public class DatabaseManager : MonoBehaviour
     {
         if (!initiated)
         {
-            errorMessage = "Database not initiated";
+            errorMessage = "Database not initiated " + MSSQLServerConnector.cn_String;
             basicDisplayname = "";
             return false;
         }
