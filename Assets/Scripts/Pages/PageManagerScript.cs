@@ -54,6 +54,10 @@ namespace PageManagement
             ChangeCurrentPage(mainPage);
             techPagesSeparator.SetActive(false);
         }
+        public void UpdateMainPageProductButtons()
+        {
+            mainPage.GetComponent<MainPageScript>().UpdateProductButtons();
+        }
     }
 }
 

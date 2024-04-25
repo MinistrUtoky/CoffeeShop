@@ -256,9 +256,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7358976217879699163}
-        m_TargetAssemblyTypeName: UserManagement.LoginerScript, Assembly-CSharp
-        m_MethodName: Login
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MainPageScript, Assembly-CSharp
+        m_MethodName: UpdateProductButtons
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -283,6 +283,8 @@ MonoBehaviour:
   loginField: {fileID: 4814438865244790058}
   emailFieldIfExists: {fileID: 0}
   passwordField: {fileID: 5300612236293756927}
+  userTypeDropdownIfExists: {fileID: 0}
+  errorField: {fileID: 6439146271926896451}
 --- !u!1 &4269881446720366401
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +371,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: -175}
+  m_AnchoredPosition: {x: -10, y: -150}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6767835216030155719
@@ -430,7 +432,7 @@ MonoBehaviour:
   m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0

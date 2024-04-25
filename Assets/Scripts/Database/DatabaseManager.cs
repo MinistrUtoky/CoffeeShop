@@ -1,55 +1,85 @@
 using CorvusEnLignumDBSolutionsIncorporated;
-using System;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using static Assets.Scripts.Database.DataStructures;
 
 public class DatabaseManager : MonoBehaviour
 {
-    public static DatabaseManager Instance { get; private set; }
-    private static string dbName = "mainDB.mdf";
-    void Start()
+    private static bool initiated = false;
+    public static void Initiate(string dataPath)
     {
-        Instance = this;
-        MSSQLServerConnector.cn_String = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + string.Join("\\", Application.dataPath.Split("/")) + "\\Data\\" + dbName + ";Integrated Security=True;Connect Timeout=30";
+        MSSQLServerConnector.cn_String = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + dataPath + ";Integrated Security=True;Connect Timeout=30";
 
         foreach (string d in MSSQLServerConnector.GetColumnNames("app_users"))
             Debug.Log(d); // just testing db to see that it works        
+        initiated = true;
     }
 
-    public bool TryAddUser(UserData newUser, out string errorMessage, out string basicDisplayname)
+    public static bool TryAddUser(UserData newUser, out string errorMessage, out string basicDisplayname)
     {
+        if (!initiated)
+        {
+            errorMessage = "Database not initiated";
+            basicDisplayname = "";
+            return false;
+        }
         errorMessage = "";
         byte[] pData = System.Text.Encoding.ASCII.GetBytes(newUser.password);
         pData = new System.Security.Cryptography.SHA256Managed().ComputeHash(pData);
         string passwordHash = System.Text.Encoding.ASCII.GetString(pData);
+        newUser.password = passwordHash;
         basicDisplayname = "User" + MSSQLServerConnector.GetNextId("app_users");
-        if (DoesUserExist(newUser.login, passwordHash))
+        if (DoesUserExist(newUser.login))
         {
             errorMessage = "User with such name already exists";
             return false;
         }
         newUser.displayName = basicDisplayname;
-        foreach (string s in newUser.ToList())
-        {
-            Debug.Log(s);
-        }
         MSSQLServerConnector.DBInsert("app_users", newUser.ToList());
         return true;
     }
-    private bool DoesUserExist(string login, string password)
+    private static bool DoesUserExist(string login)
     {
-        if (MSSQLServerConnector.GetDataTable("SELECT * FROM [app_users] WHERE user_login='" + login + "'").Rows.Count == 0)
+        string sqlQuery = "SELECT * FROM [app_users] WHERE user_login='" + login + "'";
+        if (MSSQLServerConnector.GetDataTable(sqlQuery).Rows.Count == 0)
             return false;
         else
             return true;
     }
-    public bool AreLoginAndPasswordRight(string login, string password)
+    private static bool AreLoginAndPasswordRight(string login, string password, out DataTable table)
     {
-        if (MSSQLServerConnector.GetDataTable("SELECT * FROM [app_users] WHERE user_login='" + login + "' AND user_password='" + password + "'").Rows.Count == 0)
+        string sqlQuery = "SELECT * FROM [app_users] WHERE user_login='" + login + "' AND user_password='" + password + "'";
+        Debug.Log(sqlQuery);
+        if ((table=MSSQLServerConnector.GetDataTable(sqlQuery)).Rows.Count == 0)
             return false;
         else
             return true;
+    }
+    public static bool TryFindUser(string login, string password, out UserData user)
+    {
+        if (!initiated)
+        {
+            user = new UserData();
+            return false;
+        }
+        DataTable table;
+        user = new UserData();
+        byte[] pData = System.Text.Encoding.ASCII.GetBytes(password);
+        pData = new System.Security.Cryptography.SHA256Managed().ComputeHash(pData);
+        string passwordHash = System.Text.Encoding.ASCII.GetString(pData);
+        if (AreLoginAndPasswordRight(login, passwordHash, out table))
+        {
+            List<string> userData = new List<string>(){"0"};
+            foreach (object? item in table.Rows[0].ItemArray)
+            {
+                userData.Add(item?.ToString());
+            }
+            user = (UserData)user.ToData(userData);
+            return true;
+        }
+        else
+            return false;
     }
 }
 

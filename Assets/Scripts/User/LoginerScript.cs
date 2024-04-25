@@ -11,6 +11,10 @@ namespace UserManagement
         private TMP_InputField emailFieldIfExists;
         [SerializeField]
         private TMP_InputField passwordField;
+        [SerializeField]
+        private TMP_Dropdown userTypeDropdownIfExists;
+        [SerializeField]
+        private TMP_Text errorField;
         private void Start()
         {
             loginField.lineType = TMP_InputField.LineType.SingleLine;
@@ -22,8 +26,7 @@ namespace UserManagement
             passwordField.contentType = TMP_InputField.ContentType.Password;
             passwordField.lineType = TMP_InputField.LineType.SingleLine;
         }
-        public void Login() => UserManagerScript.Instance.Login(loginField, passwordField);
-        public void Register() => UserManagerScript.Instance.Register(loginField, emailFieldIfExists, passwordField);
-       
+        public void Login() => errorField.text = UserManagerScript.Instance.Login(loginField, passwordField);
+        public void Register() => errorField.text = UserManagerScript.Instance.Register(loginField, emailFieldIfExists, passwordField, userTypeDropdownIfExists);
     }
 }

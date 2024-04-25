@@ -12,4 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/CoffeeShop_Main.Proj.unity
     guid: 432e64b515a71b348acc55e6eb6dc3bb
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: bf5495d039e272849b923d3bc6e825f4, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 9c1762e579ba90147ae4118daf503559, type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: 57e03b05e429c6248b30be9c2bef78c4, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 3e39616634feaf04480f273035e7b4b3, type: 2}

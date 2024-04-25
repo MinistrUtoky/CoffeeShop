@@ -33,8 +33,8 @@ namespace Assets.Scripts.Database
             /// </summary>
             public void Clear()
             {
-               // someData.Clear();
-                //someOtherData.Clear();
+                someData.Clear();
+                someOtherData.Clear();
             }
             /// <summary>
             /// Addition of another sandbox's values to this sandbox instance 
@@ -65,7 +65,7 @@ namespace Assets.Scripts.Database
             public UserType type;
             public string currency;
 
-            public int NumberOfParameters => 6;
+            public int NumberOfParameters => 7;
             public int Id => id;
             public Data ToData(List<string> data)
             {

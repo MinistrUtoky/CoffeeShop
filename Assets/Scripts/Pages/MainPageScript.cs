@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UserManagement;
 using static Assets.Scripts.Database.DataStructures;
+using Product = Assets.Scripts.Database.DataStructures.Product;
 
 public class MainPageScript : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class MainPageScript : MonoBehaviour
 
     public void UpdateProductButtons()
     {
+        gameObject.SetActive(true); // :D
+
         //—ƒ≈À¿“‹  ¿  ƒŒ¡¿¬»Ã –»¿À “¿…Ã œŒƒ√–”« ” — ‘¿…À¿
         foreach (Transform child in productScrollViewContent)
         {
@@ -20,11 +23,12 @@ public class MainPageScript : MonoBehaviour
         List<Product> productList = SubscriptionManagerScript.Instance.GetProductList();
         var adPanel=Instantiate(adPanelPrefab,productScrollViewContent);
         adPanel.gameObject.SetActive(true);
-        foreach (var product in productList)
+        foreach (Product product in productList)
         {
             var productButton = Instantiate(productButtonPrefab, productScrollViewContent);
-            productButton.GetComponent<ProductButtonScript>().SetValues(product);
             productButton.gameObject.SetActive(true);
+            productButton.GetComponent<ProductButtonScript>().SetValues(product);
         }
     }
+
 }

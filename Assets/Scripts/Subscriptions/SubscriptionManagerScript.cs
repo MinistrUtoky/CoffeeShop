@@ -1,5 +1,3 @@
-using productRelated;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -27,13 +25,14 @@ public class SubscriptionManagerScript : MonoBehaviour
     [SerializeField] public TextAsset productJsonFile;
 
     public string CurrentCurrency { get { return _currentCurrency; } }
+    public string JsonSavingDirectory { get; set; }
 
     private void Awake()
     {
         Instance = this;
         currencyRates = new Dictionary<string, float>();
-
         _currentCurrency = "Euro";
+
         UpdateConversionRates();
         GetProductsFromJson();
     }
@@ -121,9 +120,7 @@ public class SubscriptionManagerScript : MonoBehaviour
         if (allProductList == null) 
             allProductList = new MyList<Product>();
         if (allProductList.list == null)
-        {
             allProductList.list = new List<Product>();
-        }
         Debug.Log("Got products from JSON file");
     }
     private void GetSubscriptionsFromJson()
@@ -140,19 +137,16 @@ public class SubscriptionManagerScript : MonoBehaviour
     {
         string jsonNew = JsonUtility.ToJson(allSubscriptionList);
         Debug.Log("Updated subscriptions JSON " + jsonNew);
-        File.WriteAllText(AssetDatabase.GetAssetPath(subscriptionsJsonFile), jsonNew);
-        EditorUtility.SetDirty(subscriptionsJsonFile);
+        File.WriteAllText(Path.Combine(JsonSavingDirectory, subscriptionsJsonFile.name + ".json"), jsonNew);
     }
     private void UpdateProductJsonFile()
     {
         string jsonNew = JsonUtility.ToJson(allProductList);
         Debug.Log("Updated products JSON " + jsonNew);
-        File.WriteAllText(AssetDatabase.GetAssetPath(productJsonFile), jsonNew);
-        EditorUtility.SetDirty(productJsonFile);
+        File.WriteAllText(Path.Combine(JsonSavingDirectory, productJsonFile.name + ".json"), jsonNew);
     }
     private void UpdateConversionRates()
     {
-
         // Дописать потом функцию автоматического обновления курсов
         currencyRates.Add("Euro",1f);
         currencyRates.Add("Dollar", 1.09f);
