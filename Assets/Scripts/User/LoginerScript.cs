@@ -26,7 +26,18 @@ namespace UserManagement
             passwordField.contentType = TMP_InputField.ContentType.Password;
             passwordField.lineType = TMP_InputField.LineType.SingleLine;
         }
-        public void Login() => errorField.text = UserManagerScript.Instance.Login(loginField, passwordField);
-        public void Register() => errorField.text = UserManagerScript.Instance.Register(loginField, emailFieldIfExists, passwordField, userTypeDropdownIfExists);
+        public void Login()
+        {
+            errorField.text = UserManagerScript.Instance.Login(loginField, passwordField);
+        }
+
+        public void Register()
+        {
+            errorField.text = UserManagerScript.Instance.Register(loginField, emailFieldIfExists, passwordField, userTypeDropdownIfExists);
+            Vector4 errorFieldMargins = errorField.margin;
+            errorField.ForceMeshUpdate();
+            errorFieldMargins.w = -errorField.GetRenderedValues(true).y;
+            errorField.margin = errorFieldMargins;
+        }
     }
 }

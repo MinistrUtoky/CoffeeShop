@@ -3,6 +3,10 @@ using TMPro;
 using PageManagement;
 using UnityEngine.Events;
 using static Assets.Scripts.Database.DataStructures;
+using System.Net.Mail;
+using System;
+using System.Text.RegularExpressions;
+using static TMPro.TMP_InputField;
 
 namespace UserManagement {
     public class UserManagerScript : MonoBehaviour
@@ -39,14 +43,22 @@ namespace UserManagement {
             }
             else
                 return "Such user does not exist";
-        }
-        public string Register(TMP_InputField loginField, TMP_InputField emailField, TMP_InputField passwordField, TMP_Dropdown userType, string currency="Euro")
+        } 
+
+        public string Register(TMP_InputField loginField, TMP_InputField emailOrPhoneField, TMP_InputField passwordField, TMP_Dropdown userType, string currency="Euro")
         {
             string errorMessage;
+            if (!IsLoginOkay(loginField.text))
+                return "Login length should exceed 6 symbols";
+            if (!IsEmailOkay(emailOrPhoneField.text) & !IsPhoneOkay(emailOrPhoneField.text))
+                return "Inacceptable e-mail or phone format";
+            if (!IsPasswordOkay(passwordField.text))
+                return "Password length should exceed 6 symbols, contain at least one digit, one upper and lower letters and a special symbol:" +
+                        "\n #, ?, !, @, $, %, ^, &, * or -";
             UserData user = new UserData()
             {
                 login = loginField.text,
-                email = emailField.text,
+                email = emailOrPhoneField.text,
                 password = passwordField.text,
                 type = (UserType)userType.value,
                 currency = currency
@@ -61,9 +73,33 @@ namespace UserManagement {
             else
                 return errorMessage;
         }
+        private bool IsEmailOkay(string email)
+        {
+            return Regex.IsMatch(email, "^(?(\")(\".+?(?<!\\\\)\"@)|(([0-9a-z]((\\.(?!\\.))|[-!#\\$%&'\\*\\+/=\\?\\^`{}|~\\w])*)(?<=[0-9a-z])@))(?([)([(\\d{1,3}.){3}\\d{1,3}])|(([0-9a-z][-0-9a-z]*[0-9a-z]*.)+[a-z0-9][-a-z0-9]{0,22}[a-z0-9]))$");
+        }
+        private bool IsPhoneOkay(string phoneNumber)
+        {
+            return Regex.IsMatch(phoneNumber, "\\(?\\d{3}\\)?-? *\\d{3}-? *-?\\d{4}");
+        }
+        private bool IsPasswordOkay(string password)
+        {
+            Debug.Log(Regex.IsMatch(password, "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{7,}$"));
+            return password.Length > 6                    
+                   & Regex.IsMatch(password, "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{7,}$");
+        } 
+        private bool IsLoginOkay(string login)
+        {
+            return login.Length > 6;
+        }
         public UserData GetCurrentUser()
         {
             return currentUser;
+        }
+        public void ShowOrHidePassword(TMP_InputField passwordField)
+        {
+            if (passwordField.contentType == ContentType.Password) passwordField.contentType = ContentType.Standard;
+            else passwordField.contentType = ContentType.Password;
+            passwordField.ForceLabelUpdate();
         }
     }
 }
