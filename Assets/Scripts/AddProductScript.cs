@@ -1,12 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using static Assets.Scripts.Database.DataStructures;
-using Debug = UnityEngine.Debug;
-using TextAsset = UnityEngine.TextAsset;
 
 namespace productRelated
 {

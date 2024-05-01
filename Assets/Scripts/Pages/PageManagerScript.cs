@@ -1,11 +1,23 @@
-using productRelated;
+using CorvusEnLignumDBSolutionsIncorporated;
+using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Assets.Scripts.Database.DataStructures;
+using Product = Assets.Scripts.Database.DataStructures.Product;
 
 namespace PageManagement
 {
     public class PageManagerScript : MonoBehaviour
     {
+        [Serializable]
+        private struct BottomPanelByUserType
+        {
+            public List<Transform> buyerButtons;
+            public List<Transform> sellerButtons;
+            public List<Transform> moderatorButtons;
+        }
         public static PageManagerScript Instance { get; private set; }
         private GameObject currentPage;
         [SerializeField] 
@@ -16,6 +28,10 @@ namespace PageManagement
         private GameObject techPagesSeparator;
         [SerializeField]
         private GameObject mainPage;
+        [SerializeField]
+        private RectTransform bottomPanel;
+        [SerializeField]
+        private BottomPanelByUserType bottomPanelPresets;
         public GameObject CurrentScene { get { return currentPage; } }
         private void Awake()
         {
@@ -57,6 +73,38 @@ namespace PageManagement
         public void UpdateMainPageProductButtons()
         {
             mainPage.GetComponent<MainPageScript>().UpdateProductButtons();
+        }
+        public void ShowNavPanelAccordingToUserType(UserType userType)
+        {
+            Transform bg = bottomPanel.Find("BottomPanelBackground");
+            foreach (Transform child in bottomPanel)
+            {
+                if (child != bg) {
+                    child.gameObject.SetActive(false);
+                }
+            }
+
+            List<Transform> bottomButtons = new List<Transform>();
+            if (userType == UserType.Buyer)
+                bottomButtons = bottomPanelPresets.buyerButtons;
+            else if (userType == UserType.Seller)
+                bottomButtons = bottomPanelPresets.sellerButtons;
+            else if (userType == UserType.Moderator)
+                bottomButtons = bottomPanelPresets.moderatorButtons;
+
+            Vector3 canvasScale = bottomPanel.transform.GetComponentsInParent<Canvas>()[0].transform.localScale;
+            for (int i = 0; i < bottomButtons.Count; i++)
+            {              
+                Debug.Log(bg.GetComponent<RectTransform>().rect.width);
+                bottomButtons[i].position = new Vector3((i+1) * canvasScale.x * bg.GetComponent<RectTransform>().rect.width / (bottomButtons.Count+1),
+                                                         canvasScale.y * bg.GetComponent<RectTransform>().rect.height / 2, 0);
+                bottomButtons[i].gameObject.SetActive(true);
+            }
+        }   
+        public void Exit()
+        {
+            MSSQLServerConnector.CloseDBConnection();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

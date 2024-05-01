@@ -21,8 +21,10 @@ public class SubscriptionManagerScript : MonoBehaviour
     private Dictionary<string, float> currencyRates;
     private string _currentCurrency;
 
-    [SerializeField] public TextAsset subscriptionsJsonFile;
-    [SerializeField] public TextAsset productJsonFile;
+    [HideInInspector]
+    public TextAsset subscriptionsJsonFile;
+    [HideInInspector]
+    public TextAsset productJsonFile;
 
     public string CurrentCurrency { get { return _currentCurrency; } }
     public string JsonSavingDirectory { get; set; }
@@ -136,14 +138,14 @@ public class SubscriptionManagerScript : MonoBehaviour
     private void UpdateSubscriptionJsonFile()
     {
         string jsonNew = JsonUtility.ToJson(allSubscriptionList);
-        Debug.Log("Updated subscriptions JSON " + jsonNew);
         File.WriteAllText(Path.Combine(JsonSavingDirectory, subscriptionsJsonFile.name + ".json"), jsonNew);
+        Debug.Log("Updated products JSON " + jsonNew);
     }
     private void UpdateProductJsonFile()
     {
         string jsonNew = JsonUtility.ToJson(allProductList);
-        Debug.Log("Updated products JSON " + jsonNew);
         File.WriteAllText(Path.Combine(JsonSavingDirectory, productJsonFile.name + ".json"), jsonNew);
+        Debug.Log("Updated products JSON " + jsonNew);
     }
     private void UpdateConversionRates()
     {

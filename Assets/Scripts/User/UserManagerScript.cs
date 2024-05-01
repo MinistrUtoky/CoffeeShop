@@ -30,6 +30,7 @@ namespace UserManagement {
             {
                 currentUser.currency = currency;
                 PageManagerScript.Instance.UpdateMainPageProductButtons();
+                PageManagerScript.Instance.ShowNavPanelAccordingToUserType(currentUser.type);
                 PageManagerScript.Instance.SwitchFromTechPagesToUsables();
                 foreach (string s in currentUser.ToList())
                     Debug.Log(s);

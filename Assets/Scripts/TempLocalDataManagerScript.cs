@@ -22,9 +22,13 @@ public class TempLocalDataManagerScript : MonoBehaviour
             Directory.CreateDirectory(whereToSave);
         Debug.Log(Path.Combine(whereToSave, "ProductsDataDraft.json"));
         Debug.Log(Path.Combine(whereToSave, "SubscriptionsDataDraft.json"));
-        File.WriteAllText(Path.Combine(whereToSave, "ProductsDataDraft.json"), productJsonFile.text);
-        File.WriteAllText(Path.Combine(whereToSave, "SubscriptionsDataDraft.json"), subscriptionsJsonFile.text);
+        if (!File.Exists(Path.Combine(whereToSave, "ProductsDataDraft.json")))
+            File.WriteAllText(Path.Combine(whereToSave, "ProductsDataDraft.json"), productJsonFile.text);
+        if (!File.Exists(Path.Combine(whereToSave, "SubscriptionsDataDraft.json")))
+            File.WriteAllText(Path.Combine(whereToSave, "SubscriptionsDataDraft.json"), subscriptionsJsonFile.text);
         SubscriptionManagerScript.Instance.JsonSavingDirectory = whereToSave;
+        SubscriptionManagerScript.Instance.productJsonFile = Resources.Load<TextAsset>("ProductsDataDraft");
+        SubscriptionManagerScript.Instance.subscriptionsJsonFile = Resources.Load<TextAsset>("SubscriptionsDataDraft");
         //StartCoroutine(CopyDBToLocalFile(whereToSave)); Works with sqlite only
         DatabaseManager.Initiate();
     }
