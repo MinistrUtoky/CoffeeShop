@@ -1,7 +1,9 @@
 using productRelated;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using static Assets.Scripts.Database.DataStructures;
 
 public class SubscriptionButtonScript : MonoBehaviour
@@ -11,9 +13,10 @@ public class SubscriptionButtonScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI productName;
     [SerializeField] private TextMeshProUGUI subscriptionEndDate;
     [SerializeField] private TextMeshProUGUI productAmount;
-
+    [SerializeField] private Button deleteButton;
 
     public Subscription Subscription { get { return _subscription; } }
+
     public void SetValues(Subscription subscription)
     {
         try
@@ -23,17 +26,24 @@ public class SubscriptionButtonScript : MonoBehaviour
             this.subscriptionEndDate.text = subscription.subscriptionEnd;
             this.productAmount.text = subscription.productAmount.ToString();
         }
-        catch
+        catch (Exception ex)
         {
-            Debug.LogError("Что то пошло не так в задаче значений");
-            Destroy(gameObject);
+            Debug.LogError($"Что то пошло не так в задаче значений\n{ex.Message}");
+            //Destroy(gameObject);
         }
 
     }
-    public void Click()
+    public Subscription GetSubscription()
+    {
+        return _subscription;
+    }
+    public void DeleteSubscription()
     {
         SubscriptionManagerScript.Instance.RemoveSubscription(_subscription);
         Destroy(gameObject);
     }
-
+    public Button GetDeleteButton()
+    {
+        return deleteButton;
+    }
 }

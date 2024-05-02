@@ -24,6 +24,8 @@ namespace PageManagement
         private GameObject starterPage;
         [SerializeField]
         private GameObject productPage;
+        [SerializeField] 
+        private GameObject editSubsciptionPage;
         [SerializeField]
         private GameObject techPagesSeparator;
         [SerializeField]
@@ -60,6 +62,13 @@ namespace PageManagement
             productPage.GetComponent<AddToSubscriptionPopUpScript>().SetValues(product,image);
             ChangeCurrentPage(productPage);
             Debug.Log("Showing Add to Subscription Pop up");
+        }
+        public void ChangePageToSubscriptionEditPage(Subscription subscription, Sprite image)
+        {
+            editSubsciptionPage.GetComponent<EditSubscriptionPopUpScript>().SetValues(subscription,image);
+            SubscriptionManagerScript.Instance.RemoveSubscription(subscription); 
+            ChangeCurrentPage(editSubsciptionPage);
+            Debug.Log("Showing Sub Edit Popup");
         }
         public void HideAddToSubscriptionPopUp()
         {
