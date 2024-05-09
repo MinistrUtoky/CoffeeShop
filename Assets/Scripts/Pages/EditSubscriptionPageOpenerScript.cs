@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using PageManagement;
 using Unity.VisualScripting;
-using Product = Assets.Scripts.Database.DataStructures.Product;
 using static Assets.Scripts.Database.DataStructures;
 
 public class EditSubscriptionPageOpenerScript : MonoBehaviour

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UserManagement;
 using static Assets.Scripts.Database.DataStructures;
 
 namespace productRelated
@@ -14,7 +15,7 @@ namespace productRelated
         [SerializeField]
         private TMP_InputField productPrice;
 
-        private List<Product> products;
+        private List<ProductData> products;
         private void Start()
         {
             UpdateProductsList();
@@ -23,7 +24,7 @@ namespace productRelated
         {
             float numPrice=-1;
             float.TryParse(productPrice.text, out numPrice);
-            Product product = new Product
+            ProductData product = new ProductData
             {
                 id = products.Count,
                 name = productName.text,
@@ -31,6 +32,7 @@ namespace productRelated
                 price = numPrice,
                 //Временное решение пока не поменял меню добавления товара
                 pictureURL = "https://cliparting.com/wp-content/uploads/2018/03/cool-pictures-2018-3.jpg",
+                vendorUserLogin = UserManagerScript.Instance.CurrentUser.login
             };
             SubscriptionManagerScript.Instance.AddNewProduct(product);
         }

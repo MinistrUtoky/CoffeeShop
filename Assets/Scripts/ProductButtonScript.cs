@@ -10,13 +10,13 @@ using static Assets.Scripts.Database.DataStructures;
 
 public class ProductButtonScript : MonoBehaviour
 {
-    private Product _product;
+    private ProductData _product;
     [SerializeField] private TextMeshProUGUI productNameText;
     [SerializeField] private TextMeshProUGUI productPriceText;
     [SerializeField] private Image productImage;
     private Texture2D productIcon;
 
-    public void SetValues(Product product)
+    public void SetValues(ProductData product)
     {
         try
         {
@@ -34,7 +34,7 @@ public class ProductButtonScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public Product GetProduct()
+    public ProductData GetProduct()
     {
         return _product;
     }

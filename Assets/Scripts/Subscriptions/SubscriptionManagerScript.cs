@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class SubscriptionManagerScript : MonoBehaviour
     private MyList<Subscription> allSubscriptionList;
     private List<Subscription> currentUserSubscriptionList;
 
-    private MyList<Product> allProductList;
+    private MyList<ProductData> allProductList;
 
     private Dictionary<string, float> currencyRates;
     private string _currentCurrency;
@@ -29,6 +30,18 @@ public class SubscriptionManagerScript : MonoBehaviour
     public string CurrentCurrency { get { return _currentCurrency; } }
     public string JsonSavingDirectory { get; set; }
 
+    public MyList<Subscription> GetAllSubscriptionList() => allSubscriptionList;
+
+    public List<Subscription> GetCurrentUserSubscriptionList() => currentUserSubscriptionList;
+
+    public float GetConversionRate(string currency1, string currency2) => currencyRates[currency2] / currencyRates[currency1];
+
+    public ProductData GetProduct(int id) => allProductList.list[id];
+
+    public ProductData GetProduct(ProductData product) => allProductList.list.Find(x => x == product);
+
+    public List<ProductData> GetProductList() => allProductList.list;
+
     private void Awake()
     {
         Instance = this;
@@ -36,7 +49,6 @@ public class SubscriptionManagerScript : MonoBehaviour
         _currentCurrency = "Euro";
 
         UpdateConversionRates();
-        GetProductsFromJson();
     }
     private void Start()
     {
@@ -62,14 +74,6 @@ public class SubscriptionManagerScript : MonoBehaviour
         UpdateCurrentUserSubscriptionList();
         OnSubscriptionRelatedChanges?.Invoke();
     }
-    public MyList<Subscription> GetAllSubscriptionList()
-    {
-        return allSubscriptionList;
-    }
-    public List<Subscription> GetCurrentUserSubscriptionList()
-    {
-        return currentUserSubscriptionList;
-    }
     private void UpdateCurrentUserSubscriptionList()
     {
         // Пока не решили вопрос с обновлением текстового файла, закомментирую. Обновляется только список подписок у пользователя.
@@ -90,41 +94,67 @@ public class SubscriptionManagerScript : MonoBehaviour
             }
         }
     }
-    public float GetConversionRate(string currency1, string currency2)
-    {
-        return currencyRates[currency2]/currencyRates[currency1];
-    }
-    public Product GetProduct(int id)
-    {
-        return allProductList.list[id];
-    }
-    public Product GetProduct(Product product)
-    {
-        return allProductList.list.Find(x => x == product); 
-    }
-    public List<Product> GetProductList()
-    {
-        return allProductList.list;
-    }
-    public void AddNewProduct(Product newProduct)
+    
+    public void AddNewProduct(ProductData newProduct)
     {
         allProductList.list.Add(newProduct);
-        UpdateProductJsonFile();
+        if (DatabaseManager.TryAddProduct(newProduct))
+        {
+            Debug.Log("Successfully added product to DB");
+        }
+        else
+        {
+            Debug.Log("Something went wrong during products insertion");
+        }
+        RetrieveProductsFromDB();
+        //UpdateProductJsonFile();
     } 
-    public void RemoveProduct(Product product)
+    public void RetrieveProductsFromDB()
+    {
+        if (allProductList == null)
+            allProductList = new MyList<ProductData>();
+        if (DatabaseManager.TryRetrieveAllProducts(out allProductList.list))
+        {
+            Debug.Log("Successfully retrieved products from DB");
+        }
+        else
+        {
+            allProductList.list = new List<ProductData>();
+            Debug.Log("Something went wrong during products retrieval");
+        }
+    }
+    /*
+     * 
+    public void RemoveProduct(ProductData product)
     {
         allProductList.list.Remove(product);
         UpdateProductJsonFile();
     }
     private void GetProductsFromJson()
     {
-        allProductList = JsonUtility.FromJson<MyList<Product>>(productJsonFile.text);
+        allProductList = JsonUtility.FromJson<MyList<ProductData>>(productJsonFile.text);
         if (allProductList == null) 
-            allProductList = new MyList<Product>();
+            allProductList = new MyList<ProductData>();
         if (allProductList.list == null)
-            allProductList.list = new List<Product>();
+            allProductList.list = new List<ProductData>();
         Debug.Log("Got products from JSON file");
+    }    
+    private void UpdateProductJsonFile()
+    {
+        string jsonNew = JsonUtility.ToJson(allProductList);
+        File.WriteAllText(Path.Combine(JsonSavingDirectory, productJsonFile.name + ".json"), jsonNew);
+        Debug.Log("Updated products JSON " + jsonNew);
     }
+    */
+    private void UpdateConversionRates()
+    {
+        // Дописать потом функцию автоматического обновления курсов
+        currencyRates.Add("Euro",1f);
+        currencyRates.Add("Dollar", 1.09f);
+        currencyRates.Add("Ruble",100.85f);
+        currencyRates.Add("Yuan",7.85f);
+    }
+
     private void GetSubscriptionsFromJson()
     {
         allSubscriptionList = JsonUtility.FromJson<MyList<Subscription>>(subscriptionsJsonFile.text);
@@ -141,19 +171,4 @@ public class SubscriptionManagerScript : MonoBehaviour
         File.WriteAllText(Path.Combine(JsonSavingDirectory, subscriptionsJsonFile.name + ".json"), jsonNew);
         Debug.Log("Updated products JSON " + jsonNew);
     }
-    private void UpdateProductJsonFile()
-    {
-        string jsonNew = JsonUtility.ToJson(allProductList);
-        File.WriteAllText(Path.Combine(JsonSavingDirectory, productJsonFile.name + ".json"), jsonNew);
-        Debug.Log("Updated products JSON " + jsonNew);
-    }
-    private void UpdateConversionRates()
-    {
-        // Дописать потом функцию автоматического обновления курсов
-        currencyRates.Add("Euro",1f);
-        currencyRates.Add("Dollar", 1.09f);
-        currencyRates.Add("Ruble",100.85f);
-        currencyRates.Add("Yuan",7.85f);
-    }
-
 }

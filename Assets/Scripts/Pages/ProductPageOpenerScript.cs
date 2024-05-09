@@ -2,12 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using PageManagement;
 using Unity.VisualScripting;
-using Product = Assets.Scripts.Database.DataStructures.Product;
+using ProductData = Assets.Scripts.Database.DataStructures.ProductData;
 
 public class ProductPageOpenerScript : MonoBehaviour
 {
     private PageManagerScript pageManager;
-    private Product productToAdd;
+    private ProductData productToAdd;
     [SerializeField] private Image productImage;
 
     private void Start()

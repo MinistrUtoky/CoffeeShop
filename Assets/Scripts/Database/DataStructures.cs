@@ -85,6 +85,56 @@ namespace Assets.Scripts.Database
                 return new List<string>() { id.ToString(), displayName, login, email, password, ((int)type).ToString(), currency };
             }
         }
+
+        [Serializable]
+        public struct ProductData : Data
+        {
+            public int id;
+            public string name;
+            [TextArea(10, 10)]
+            public string description;
+            public string pictureURL;
+            public float price;
+            public string vendorUserLogin;
+
+            public int NumberOfParameters => 6;
+            public int Id => id;
+
+            public override bool Equals(object obj)
+            {
+                return obj is ProductData product &&
+                       id == product.id &&
+                       name == product.name &&
+                       description == product.description &&
+                       pictureURL == product.pictureURL &&
+                       price == product.price;
+            }
+            public static bool operator ==(ProductData product1, ProductData product2)
+            {
+                return product1.Equals(product2);
+            }
+            public static bool operator !=(ProductData product1, ProductData product2)
+            {
+                return !(product1 == product2);
+            }
+
+            public Data ToData(List<string> data)
+            {
+                if (data.Count != NumberOfParameters) throw new Exception("Wrong data size format");
+                id = int.Parse(data[0]);
+                name = data[1];
+                description = data[2];
+                pictureURL = data[3];
+                price = float.Parse(data[4]);
+                vendorUserLogin = data[5];
+                return this;
+            }
+
+            public List<string> ToList()
+            {
+                return new List<string>() { id.ToString(), name, description, pictureURL, price.ToString(), vendorUserLogin };
+            }
+        }
         public struct SomeOtherData : Data
         {
             public int id;
@@ -115,35 +165,6 @@ namespace Assets.Scripts.Database
         public class MyList<T>
         {
             public List<T> list;
-        }
-
-        [Serializable]
-        public struct Product
-        {
-            public int id;
-            public string name;
-            [TextArea(10, 10)]
-            public string description;
-            public string pictureURL;
-            public float price;
-
-            public override bool Equals(object obj)
-            {
-                return obj is Product product &&
-                       id == product.id &&
-                       name == product.name &&
-                       description == product.description &&
-                       pictureURL == product.pictureURL &&
-                       price == product.price;
-            }
-            public static bool operator == (Product product1, Product product2)
-            {
-                return product1.Equals(product2);
-            }
-            public static bool operator != (Product product1, Product product2)
-            {
-                return !(product1==product2);
-            }
         }
         [Serializable]
         public struct Subscription

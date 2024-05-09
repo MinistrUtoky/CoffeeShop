@@ -3,8 +3,6 @@ using TMPro;
 using PageManagement;
 using UnityEngine.Events;
 using static Assets.Scripts.Database.DataStructures;
-using System.Net.Mail;
-using System;
 using System.Text.RegularExpressions;
 using static TMPro.TMP_InputField;
 

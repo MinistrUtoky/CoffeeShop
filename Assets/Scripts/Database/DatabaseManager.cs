@@ -1,8 +1,10 @@
 using CorvusEnLignumDBSolutionsIncorporated;
 using System.Collections.Generic;
 using System.Data;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Assets.Scripts.Database.DataStructures;
+using Debug = UnityEngine.Debug;
 
 public class DatabaseManager : MonoBehaviour
 {
@@ -15,8 +17,12 @@ public class DatabaseManager : MonoBehaviour
     {
         MSSQLServerConnector.cn_String = "Data Source=sql.bsite.net\\MSSQL2016;Persist Security Info=True;User ID=mutoky_;Password=123;";//"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + dataPath + ";Integrated Security=True;Connect Timeout=30;Initial Catalog=mainDB;";
         Debug.Log(MSSQLServerConnector.cn_String);
+
+
         foreach (string d in MSSQLServerConnector.GetColumnNames("app_users"))
             Debug.Log(d); // just testing db to see that it works        
+        foreach (string d in MSSQLServerConnector.GetColumnNames("all_products"))
+            Debug.Log(d); // just testing db to see that it works      
         initiated = true;
     }
 
@@ -86,7 +92,37 @@ public class DatabaseManager : MonoBehaviour
             return false;
     }
 
-
+    public static bool TryAddProduct(ProductData product)
+    {
+        try
+        {
+            Debug.Log("Inserting ProductData");
+            product.id = MSSQLServerConnector.GetNextId("all_products");
+            MSSQLServerConnector.DBInsert("all_products", product.ToList());
+            return true;
+        }
+        catch
+        {
+            Debug.LogWarning("ProductData insertion failed");
+            return false;
+        }
+    }
+    public static bool TryRetrieveAllProducts(out List<ProductData> allProducts)
+    {
+        string sqlQuery = "SELECT * FROM [all_products]";
+        DataTable table = MSSQLServerConnector.GetDataTable(sqlQuery);
+        allProducts = new List<ProductData>();
+        foreach (DataRow row in table.Rows)
+        {
+            List<string> productData = new List<string>();
+            foreach (var item in row.ItemArray)
+                productData.Add(item?.ToString());
+            ProductData product = new ProductData();
+            product = (ProductData)product.ToData(productData);
+            allProducts.Add(product);
+        }
+        return true;
+    }
 }
 
 /*
@@ -101,4 +137,22 @@ public class DatabaseManager : MonoBehaviour
                                                         "varchar(45)", "varchar(45)", "varchar(256)", "varchar(512)", "tinyint", "varchar(20)"
                                                     },
                                                     new List<string>() { "", "", "", "", "", "" });    
+
+
+MSSQLServerConnector.ExecuteSQL("ALTER TABLE app_users ALTER COLUMN user_login nvarchar(45) NOT NULL;");
+MSSQLServerConnector.ExecuteSQL("ALTER TABLE app_users ADD CONSTRAINT pk_userID PRIMARY KEY (user_login)");
+
+
+    MSSQLServerConnector.DropTable("all_products");
+    MSSQLServerConnector.CreateNewTable("all_products", new List<string>()
+                                                {
+                                                        "id", "name", "description", 
+                                                        "pictureURL", "price", "vendorUserLogin",
+                                                },
+                                                new List<string>()
+                                                {
+                                                    "int IDENTITY(1,1) primary key", "nvarchar(45)", 
+                                                    "nvarchar(2048)", "nvarchar(512)", "float", "nvarchar(45)"
+                                                },
+                                        new List<string>() { "", "", "", "", "", "app_users(user_login)" });
  */

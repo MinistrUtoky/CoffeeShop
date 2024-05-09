@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using productRelated;
 using UserManagement;
 using System;
 using static Assets.Scripts.Database.DataStructures;
@@ -10,7 +9,7 @@ public class AddToSubscriptionPopUpScript : MonoBehaviour
 {
     private float price;
     private int amount=1;
-    private Product product;
+    private ProductData product;
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI productName;
     [SerializeField] private Image image;
@@ -23,7 +22,7 @@ public class AddToSubscriptionPopUpScript : MonoBehaviour
     {
         
     }
-    public void SetValues(Product product ,Sprite image)
+    public void SetValues(ProductData product ,Sprite image)
     {
         this.product= product;
         amount = 1;

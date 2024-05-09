@@ -1,11 +1,10 @@
 using CorvusEnLignumDBSolutionsIncorporated;
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Assets.Scripts.Database.DataStructures;
-using Product = Assets.Scripts.Database.DataStructures.Product;
+using ProductData = Assets.Scripts.Database.DataStructures.ProductData;
 
 namespace PageManagement
 {
@@ -57,7 +56,7 @@ namespace PageManagement
                 }
             }
         }
-        public void ChangePageToAddToSubscription(Product product, Sprite image)
+        public void ChangePageToAddToSubscription(ProductData product, Sprite image)
         {
             productPage.GetComponent<AddToSubscriptionPopUpScript>().SetValues(product,image);
             ChangeCurrentPage(productPage);
