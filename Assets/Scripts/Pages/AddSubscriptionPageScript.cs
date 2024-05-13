@@ -86,6 +86,7 @@ public class AddToSubscriptionPopUpScript : MonoBehaviour
             productID = product.id,
             productAmount=amount
         };
+        Debug.Log($"Added {product.name} to {newSubscription.userLogin}'s subscriptions");
         SubscriptionManagerScript.Instance.AddSubscription(newSubscription);
     }
 

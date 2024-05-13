@@ -386,7 +386,8 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: -839.8252
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6888530395529538764, guid: fb2eb7f9c9ac74f4d833087f28cf501f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -877,6 +878,11 @@ GameObject:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8336456468752820422, guid: 91d5c4cbe214f734ca0a2f0993bcd6dd, type: 3}
   m_PrefabInstance: {fileID: 1909711180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &870968385 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7531092957185377686, guid: fb2eb7f9c9ac74f4d833087f28cf501f, type: 3}
+  m_PrefabInstance: {fileID: 390235139}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &1105389566 stripped
 RectTransform:
@@ -1584,6 +1590,14 @@ MonoBehaviour:
   editSubsciptionPage: {fileID: 1190388226136594957}
   techPagesSeparator: {fileID: 301510768}
   mainPage: {fileID: 52836361}
+  subscriptionsPage: {fileID: 393040680752824679}
+  subscriptionPageVariables:
+    SubscriptionButtonPrefab: {fileID: 165157307326377966, guid: 01690479a331a374ea678b927c699c6d, type: 3}
+    SubscriptionScrollViewContent: {fileID: 1733588984}
+  mainPageVariables:
+    productButtonPrefab: {fileID: 7622999103853009057, guid: 1958080d5dd6c0d40954446bf364411b, type: 3}
+    productScrollViewContent: {fileID: 870968385}
+    adPanelPrefab: {fileID: 4011452243182186152, guid: cdb23c298b05278419e36dd498ffed95, type: 3}
   bottomPanel: {fileID: 3080765855551304753}
   bottomPanelPresets:
     buyerButtons:
@@ -2177,10 +2191,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7622462187593821455, guid: f01054284f4d4f7429880e645f37bb20, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1972892761}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6538697654676331748, guid: f01054284f4d4f7429880e645f37bb20, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 393040680752824680}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f01054284f4d4f7429880e645f37bb20, type: 3}
 --- !u!224 &393040680752824678 stripped
 RectTransform:
@@ -2192,20 +2203,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6538697654676331748, guid: f01054284f4d4f7429880e645f37bb20, type: 3}
   m_PrefabInstance: {fileID: 393040680752824677}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &393040680752824680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 393040680752824679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77cbff4e1e4c6114c8427bde6516b21d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SubscriptionButtonPrefab: {fileID: 165157307326377966, guid: 01690479a331a374ea678b927c699c6d, type: 3}
-  SubscriptionScrollViewContent: {fileID: 1733588984}
 --- !u!1001 &1190388226136594948
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3069,13 +3066,17 @@ PrefabInstance:
       value: SubscriptionsMenuButton
       objectReference: {fileID: 0}
     - target: {fileID: 3288608763797725440, guid: 729ebb202c0aabb4eb505a42c90b37dd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288608763797725440, guid: 729ebb202c0aabb4eb505a42c90b37dd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1903063128}
     - target: {fileID: 3288608763797725440, guid: 729ebb202c0aabb4eb505a42c90b37dd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 393040680752824680}
+      objectReference: {fileID: 0}
     - target: {fileID: 3288608763797725440, guid: 729ebb202c0aabb4eb505a42c90b37dd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 

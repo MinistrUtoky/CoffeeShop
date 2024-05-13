@@ -1,6 +1,7 @@
 using CorvusEnLignumDBSolutionsIncorporated;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Assets.Scripts.Database.DataStructures;
@@ -17,6 +18,19 @@ namespace PageManagement
             public List<Transform> sellerButtons;
             public List<Transform> moderatorButtons;
         }
+        [Serializable]
+        private struct MainPageVariables
+        {
+            public Transform productButtonPrefab;
+            public Transform productScrollViewContent;
+            public Transform adPanelPrefab;
+        }
+        [Serializable]
+        private struct SubscriptionPageVariables
+        {
+            public Transform SubscriptionButtonPrefab;
+            public Transform SubscriptionScrollViewContent;
+        }
         public static PageManagerScript Instance { get; private set; }
         private GameObject currentPage;
         [SerializeField] 
@@ -29,6 +43,12 @@ namespace PageManagement
         private GameObject techPagesSeparator;
         [SerializeField]
         private GameObject mainPage;
+        [SerializeField] 
+        private GameObject subscriptionsPage;
+        [SerializeField]
+        private SubscriptionPageVariables subscriptionPageVariables;
+        [SerializeField] 
+        private MainPageVariables mainPageVariables;
         [SerializeField]
         private RectTransform bottomPanel;
         [SerializeField]
@@ -51,6 +71,14 @@ namespace PageManagement
                     {
                         currentPage.SetActive(false);
                         newPage.SetActive(true);
+                        if (newPage == mainPage)
+                        {
+                            UpdateMainPage();
+                        }
+                        if (newPage == subscriptionsPage)
+                        {
+                            UpdateSubscriptionButtons();
+                        }
                         currentPage = newPage;
                     }
                 }
@@ -60,14 +88,12 @@ namespace PageManagement
         {
             productPage.GetComponent<AddToSubscriptionPopUpScript>().SetValues(product,image);
             ChangeCurrentPage(productPage);
-            Debug.Log("Showing Add to Subscription Pop up");
         }
         public void ChangePageToSubscriptionEditPage(Subscription subscription, Sprite image)
         {
             editSubsciptionPage.GetComponent<EditSubscriptionPopUpScript>().SetValues(subscription,image);
             SubscriptionManagerScript.Instance.RemoveSubscription(subscription); 
             ChangeCurrentPage(editSubsciptionPage);
-            Debug.Log("Showing Sub Edit Popup");
         }
         public void HideAddToSubscriptionPopUp()
         {
@@ -77,10 +103,6 @@ namespace PageManagement
         {
             ChangeCurrentPage(mainPage);
             techPagesSeparator.SetActive(false);
-        }
-        public void UpdateMainPageProductButtons()
-        {
-            mainPage.GetComponent<MainPageScript>().UpdateProductButtons();
         }
         public void ShowNavPanelAccordingToUserType(UserType userType)
         {
@@ -109,6 +131,40 @@ namespace PageManagement
                 bottomButtons[i].gameObject.SetActive(true);
             }
         }   
+        public void UpdateMainPage()
+        {
+            mainPage.SetActive(true); 
+            SubscriptionManagerScript.Instance.RetrieveProductsFromDB();
+
+            foreach (Transform child in mainPageVariables.productScrollViewContent)
+            {
+                Destroy(child.gameObject);
+            }
+            List<ProductData> productList = SubscriptionManagerScript.Instance.GetProductList();
+            var adPanel = Instantiate(mainPageVariables.adPanelPrefab, mainPageVariables.productScrollViewContent);
+            adPanel.gameObject.SetActive(true);
+            foreach (ProductData product in productList)
+            {
+                var productButton = Instantiate(mainPageVariables.productButtonPrefab, mainPageVariables.productScrollViewContent);
+                productButton.gameObject.SetActive(true);
+                productButton.GetComponent<ProductButtonScript>().SetValues(product);
+            }
+        }
+        public void UpdateSubscriptionButtons()
+        {
+            foreach (Transform child in subscriptionPageVariables.SubscriptionScrollViewContent)
+            {
+                Destroy(child.gameObject);
+            }
+
+            List<Subscription> currentUserSubscriptionList = SubscriptionManagerScript.Instance.GetCurrentUserSubscriptionList();
+            foreach (var subscription in currentUserSubscriptionList)
+            {
+                var subscriptionButton = Instantiate(subscriptionPageVariables.SubscriptionButtonPrefab, subscriptionPageVariables.SubscriptionScrollViewContent);
+                subscriptionButton.GetComponent<SubscriptionButtonScript>().SetValues(subscription);
+                subscriptionButton.gameObject.SetActive(true);
+            }
+        }
         public void Exit()
         {
             MSSQLServerConnector.CloseDBConnection();

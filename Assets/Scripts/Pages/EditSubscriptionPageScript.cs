@@ -91,8 +91,7 @@ public class EditSubscriptionPopUpScript : MonoBehaviour
             productAmount=amount
         };
         SubscriptionManagerScript.Instance.AddSubscription(newSubscription);
-        // REDO LATER WITH THE PAGE MANAGER REWORK
-        subscriptionPage.GetComponent<SubscriptionsPageScript>().UpdateSubscriptionButtons();
+
         PageManagerScript.Instance.ChangeCurrentPage(subscriptionPage);
         
     }

@@ -20,9 +20,6 @@ public class SubscriptionsPageScript : MonoBehaviour
         {
             var subscriptionButton = Instantiate(SubscriptionButtonPrefab, SubscriptionScrollViewContent);
             subscriptionButton.GetComponent<SubscriptionButtonScript>().SetValues(subscription);
-            // Даже если пишем GetComponentInChildren оно добавляет лисенер в обычную кнопку(((
-            /*subscriptionButton.GetComponent<SubscriptionButtonScript>().GetDeleteButton().onClick.AddListener
-                (()=>subscriptionButton.GetComponent<SubscriptionButtonScript>().DeleteSubscription());*/
             subscriptionButton.gameObject.SetActive(true);
         }
     }

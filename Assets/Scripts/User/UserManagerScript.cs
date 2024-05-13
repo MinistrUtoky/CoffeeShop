@@ -31,7 +31,7 @@ namespace UserManagement {
             if (DatabaseManager.TryFindUser(loginField.text, passwordField.text, out currentUser))
             {
                 currentUser.currency = currency;
-                PageManagerScript.Instance.UpdateMainPageProductButtons();
+                PageManagerScript.Instance.UpdateMainPage();
                 PageManagerScript.Instance.ShowNavPanelAccordingToUserType(currentUser.type);
                 PageManagerScript.Instance.SwitchFromTechPagesToUsables();
                 foreach (string s in currentUser.ToList())
