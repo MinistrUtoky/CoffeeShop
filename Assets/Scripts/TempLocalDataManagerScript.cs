@@ -12,25 +12,20 @@ public class TempLocalDataManagerScript : MonoBehaviour
     void Awake()
     {
         CopyResourcesToLocalFiles();
+        DatabaseManager.Initiate();
     }
     private void CopyResourcesToLocalFiles()
     {
-        TextAsset productJsonFile = Resources.Load<TextAsset>("ProductsDataDraft");
         TextAsset subscriptionsJsonFile = Resources.Load<TextAsset>("SubscriptionsDataDraft");
         string whereToSave = Application.persistentDataPath + "/Data/";
         if (!Directory.Exists(whereToSave))
             Directory.CreateDirectory(whereToSave);
-        Debug.Log(Path.Combine(whereToSave, "ProductsDataDraft.json"));
         Debug.Log(Path.Combine(whereToSave, "SubscriptionsDataDraft.json"));
-        if (!File.Exists(Path.Combine(whereToSave, "ProductsDataDraft.json")))
-            File.WriteAllText(Path.Combine(whereToSave, "ProductsDataDraft.json"), productJsonFile.text);
         if (!File.Exists(Path.Combine(whereToSave, "SubscriptionsDataDraft.json")))
             File.WriteAllText(Path.Combine(whereToSave, "SubscriptionsDataDraft.json"), subscriptionsJsonFile.text);
         SubscriptionManagerScript.Instance.JsonSavingDirectory = whereToSave;
-        SubscriptionManagerScript.Instance.productJsonFile = Resources.Load<TextAsset>("ProductsDataDraft");
         SubscriptionManagerScript.Instance.subscriptionsJsonFile = Resources.Load<TextAsset>("SubscriptionsDataDraft");
         //StartCoroutine(CopyDBToLocalFile(whereToSave)); Works with sqlite only
-        DatabaseManager.Initiate();
     }
 
     private IEnumerator CopyDBToLocalFile(string whereToSave)

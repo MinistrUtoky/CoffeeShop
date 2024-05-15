@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static Assets.Scripts.Database.DataStructures;
 using ProductData = Assets.Scripts.Database.DataStructures.ProductData;
 
@@ -31,20 +33,27 @@ namespace PageManagement
             public Transform SubscriptionButtonPrefab;
             public Transform SubscriptionScrollViewContent;
         }
+        [Serializable]
+        private struct Pages
+        {
+            public GameObject starterPage;
+            public GameObject productPage;
+            public GameObject editSubsciptionPage;
+            public GameObject mainPage;
+            public GameObject subscriptionsPage;
+        }
+        [Serializable]
+        private struct ApprovablesVariables
+        {
+            public Transform approvablesScrollView;
+            public GameObject approvablePrefab;
+        }
         public static PageManagerScript Instance { get; private set; }
         private GameObject currentPage;
-        [SerializeField] 
-        private GameObject starterPage;
-        [SerializeField]
-        private GameObject productPage;
-        [SerializeField] 
-        private GameObject editSubsciptionPage;
         [SerializeField]
         private GameObject techPagesSeparator;
         [SerializeField]
-        private GameObject mainPage;
-        [SerializeField] 
-        private GameObject subscriptionsPage;
+        private Pages pages;
         [SerializeField]
         private SubscriptionPageVariables subscriptionPageVariables;
         [SerializeField] 
@@ -53,11 +62,13 @@ namespace PageManagement
         private RectTransform bottomPanel;
         [SerializeField]
         private BottomPanelByUserType bottomPanelPresets;
+        [SerializeField]
+        private ApprovablesVariables approvablesVariables;
         public GameObject CurrentScene { get { return currentPage; } }
         private void Awake()
         {
             Instance = this;
-            currentPage = starterPage;
+            currentPage = pages.starterPage;
             currentPage.SetActive(true);
         }
         public void ChangeCurrentPage(GameObject newPage)
@@ -71,11 +82,11 @@ namespace PageManagement
                     {
                         currentPage.SetActive(false);
                         newPage.SetActive(true);
-                        if (newPage == mainPage)
+                        if (newPage == pages.mainPage)
                         {
                             UpdateMainPage();
                         }
-                        if (newPage == subscriptionsPage)
+                        if (newPage == pages.subscriptionsPage)
                         {
                             UpdateSubscriptionButtons();
                         }
@@ -86,22 +97,22 @@ namespace PageManagement
         }
         public void ChangePageToAddToSubscription(ProductData product, Sprite image)
         {
-            productPage.GetComponent<AddToSubscriptionPopUpScript>().SetValues(product,image);
-            ChangeCurrentPage(productPage);
+            pages.productPage.GetComponent<AddToSubscriptionPopUpScript>().SetValues(product,image);
+            ChangeCurrentPage(pages.productPage);
         }
         public void ChangePageToSubscriptionEditPage(Subscription subscription, Sprite image)
         {
-            editSubsciptionPage.GetComponent<EditSubscriptionPopUpScript>().SetValues(subscription,image);
+            pages.editSubsciptionPage.GetComponent<EditSubscriptionPopUpScript>().SetValues(subscription,image);
             SubscriptionManagerScript.Instance.RemoveSubscription(subscription); 
-            ChangeCurrentPage(editSubsciptionPage);
+            ChangeCurrentPage(pages.editSubsciptionPage);
         }
         public void HideAddToSubscriptionPopUp()
         {
-            productPage.SetActive(false);
+            pages.productPage.SetActive(false);
         }
         public void SwitchFromTechPagesToUsables()
         {
-            ChangeCurrentPage(mainPage);
+            ChangeCurrentPage(pages.mainPage);
             techPagesSeparator.SetActive(false);
         }
         public void ShowNavPanelAccordingToUserType(UserType userType)
@@ -133,7 +144,7 @@ namespace PageManagement
         }   
         public void UpdateMainPage()
         {
-            mainPage.SetActive(true); 
+            pages.mainPage.SetActive(true); 
             SubscriptionManagerScript.Instance.RetrieveProductsFromDB();
 
             foreach (Transform child in mainPageVariables.productScrollViewContent)
@@ -169,6 +180,28 @@ namespace PageManagement
         {
             MSSQLServerConnector.CloseDBConnection();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        public void FillApprovalPage()
+        {
+            List<ProductData> approvables;
+            if (DatabaseManager.TryRetrieveApprovables(out approvables))
+            {
+                foreach (Transform child in approvablesVariables.approvablesScrollView.GetComponent<ScrollRect>().content)
+                    Destroy(child.gameObject);
+
+                foreach (ProductData approvable in approvables)
+                {
+                    GameObject approvableWidget = Instantiate(approvablesVariables.approvablePrefab, 
+                                                              approvablesVariables.approvablesScrollView.GetComponent<ScrollRect>().content);
+                    approvableWidget.GetComponent<ApprovableScript>().SetValues(approvable);
+                }
+                Debug.Log("Approvables successfully retrieved");
+            }
+            else
+            {
+                Debug.LogError("Couldn't open approvables");
+            }
         }
     }
 }

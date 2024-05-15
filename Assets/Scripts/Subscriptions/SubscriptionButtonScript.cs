@@ -31,7 +31,6 @@ public class SubscriptionButtonScript : MonoBehaviour
             Debug.LogError($"Что то пошло не так в задаче значений\n{ex.Message}");
             //Destroy(gameObject);
         }
-
     }
     public Subscription GetSubscription()
     {
