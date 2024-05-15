@@ -1,37 +1,13 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
-using TextAsset = UnityEngine.TextAsset;
+using UserManagement;
+using static Assets.Scripts.Database.DataStructures;
 
 namespace productRelated
 {
-    [Serializable]
-    public class SubList<Subscription>
-    {
-        public List<Subscription> subscriptionList;
-    }
-    [Serializable]
-    public struct Product
-    {
-        public int id;
-        public string name;
-        [TextArea(10, 10)]
-        public string description;
-        public float price;
-    }
-    [Serializable]
-    public class MyList<Product>
-    {
-        public List<Product> productList;
-    }
     public class AddProductScript : MonoBehaviour
     {
-        [SerializeField]
-        private TMP_InputField productId;
         [SerializeField]
         private TMP_InputField productName;
         [SerializeField]
@@ -39,33 +15,30 @@ namespace productRelated
         [SerializeField]
         private TMP_InputField productPrice;
 
-        [SerializeField]
-        public TextAsset jsonFile;
-        [SerializeField]
-        private MyList<Product> products;
-        private void Awake()
+        private List<ProductData> products;
+        private void Start()
         {
-            products = JsonUtility.FromJson<MyList<Product>> (jsonFile.text);
-            if (products == null) products = new MyList<Product>();
+            UpdateProductsList();
         }
         public void AddProduct()
         {
-            Product product = new Product
+            float numPrice=-1;
+            float.TryParse(productPrice.text, out numPrice);
+            ProductData product = new ProductData
             {
-                id=products.productList.Count,
+                id = products.Count,
                 name = productName.text,
                 description = productDescription.text,
+                price = numPrice,
+                //Временное решение пока не поменял меню добавления товара
+                pictureURL = "https://cliparting.com/wp-content/uploads/2018/03/cool-pictures-2018-3.jpg",
+                vendorUserLogin = UserManagerScript.Instance.CurrentUser.login
             };
-            float.TryParse(productPrice.text, out product.price);
-            products.productList.Add(product);
-            SaveProductIntoJson();
+            SubscriptionManagerScript.Instance.AddNewProduct(product);
         }
-        private void SaveProductIntoJson()
+        public void UpdateProductsList()
         {
-            string jsonNew = JsonUtility.ToJson(products);
-            Debug.Log("Added to products JSON " + jsonNew);
-            File.WriteAllText(AssetDatabase.GetAssetPath(jsonFile), jsonNew);
-            EditorUtility.SetDirty(jsonFile);
+            products = SubscriptionManagerScript.Instance.GetProductList();
         }
     }
 }

@@ -1,1 +1,0 @@
-{"productList":[{"userLogin":"Zilant","subscriptionStart":"09.04.2024 17:15:06","subscriptionEnd":"10.04.2024 17:15:06","productID":0,"productAmount":3},{"userLogin":"Zilant","subscriptionStart":"09.04.2024 17:15:09","subscriptionEnd":"10.04.2024 17:15:09","productID":0,"productAmount":1}]}

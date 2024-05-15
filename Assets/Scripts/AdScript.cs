@@ -23,8 +23,16 @@ public class AdScript : MonoBehaviour
     private void Start()
     {
         if (masterVideoPlayer == null) Debug.LogError("No video player assigned for " + gameObject.name);
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+    private void OnEnable()
+    {
         StartCoroutine(VideoPlayerCoroutine());
     }
+
     private IEnumerator VideoPlayerCoroutine()
     {
         while (true)
