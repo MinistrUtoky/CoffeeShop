@@ -22,7 +22,7 @@ public class SubscriptionButtonScript : MonoBehaviour
         try
         {
             this._subscription = subscription;
-            this.productName.text = SubscriptionManagerScript.Instance.GetProduct(subscription.productID-1).name;
+            this.productName.text = SubscriptionManagerScript.Instance.GetProduct(subscription.productID).name;
             this.subscriptionEndDate.text = subscription.subscriptionEnd;
             this.productAmount.text = subscription.productAmount.ToString();
         }

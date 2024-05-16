@@ -38,6 +38,11 @@ namespace UserManagement {
             {
                 currentUser.currency = currency;
                 PageManagerScript.Instance.UpdateMainPage();
+                if (currentUser.type == UserType.Moderator)
+                {
+                    PageManagerScript.Instance.FillApprovalPage();
+                    LocalDataManagerScript.Instance.MakeJsonReserveCopyForDB();
+                }
                 PageManagerScript.Instance.ShowNavPanelAccordingToUserType(currentUser.type);
                 PageManagerScript.Instance.SwitchFromTechPagesToUsables();
                 foreach (string s in currentUser.ToList())

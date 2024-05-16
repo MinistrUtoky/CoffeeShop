@@ -36,7 +36,17 @@ public class SubscriptionManagerScript : MonoBehaviour
 
     public float GetConversionRate(string currency1, string currency2) => currencyRates[currency2] / currencyRates[currency1];
 
-    public ProductData GetProduct(int id) => allProductList.list[id];
+    public ProductData GetProduct(int id)
+    {
+        foreach(var product in allProductList.list)
+        {
+            if (product.Id == id)
+            {
+                return product;
+            }
+        }
+        return new ProductData();
+    }
 
     public ProductData GetProduct(ProductData product) => allProductList.list.Find(x => x == product);
 

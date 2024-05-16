@@ -47,20 +47,28 @@ namespace PageManagement
             public Transform profilePictureSelectorContentTransform;
             public Transform profilePictureButtonPrefab;
         }
+        [Serializable]
+        private struct Pages
+        {
+            public GameObject starterPage;
+            public GameObject productPage;
+            public GameObject editSubsciptionPage;
+            public GameObject mainPage;
+            public GameObject subscriptionsPage;
+            public GameObject editProfilePage;
+            public GameObject profilePage;
+
+        }
+        [Serializable]
+        private struct ApprovablesVariables
+        {
+            public Transform approvablesScrollView;
+            public GameObject approvablePrefab;
+        }
         public static PageManagerScript Instance { get; private set; }
         private GameObject currentPage;
-        [SerializeField] 
-        private GameObject starterPage;
-        [SerializeField]
-        private GameObject productPage;
-        [SerializeField] 
-        private GameObject editSubsciptionPage;
         [SerializeField]
         private GameObject techPagesSeparator;
-        [SerializeField]
-        private GameObject mainPage;
-        [SerializeField] 
-        private GameObject subscriptionsPage;
         [SerializeField]
         private SubscriptionPageVariables subscriptionPageVariables;
         [SerializeField] 
@@ -69,14 +77,15 @@ namespace PageManagement
         private RectTransform bottomPanel;
         [SerializeField]
         private BottomPanelByUserType bottomPanelPresets;
-        [SerializeField]
-        private GameObject profilePage;
+
         [SerializeField]
         private ProfilePageVariables profilePageVariables;
         [SerializeField]
-        private GameObject editProfilePage;
+        private Pages pages;
         [SerializeField]
         private EditProfilePageVariables editProfilePageVariables;
+        [SerializeField]
+        private ApprovablesVariables approvablesVariables;
         [SerializeField]
         private GameObject helpButton;
         [SerializeField]
@@ -85,7 +94,7 @@ namespace PageManagement
         private void Awake()
         {
             Instance = this;
-            currentPage = starterPage;
+            currentPage = pages.starterPage;
             currentPage.SetActive(true);
         }
         public void ChangeCurrentPage(GameObject newPage)
@@ -99,26 +108,26 @@ namespace PageManagement
                     {
                         currentPage.SetActive(false);
                         newPage.SetActive(true);
-                        if (newPage == mainPage)
+                        if (newPage == pages.mainPage)
                         {
                             UpdateMainPage();
                             helpButton.SetActive(true);
                         }
-                        if (newPage == profilePage)
+                        if (newPage == pages.profilePage)
                         {
 
                             helpButton.SetActive(true);
                         }
-                        if (newPage == subscriptionsPage)
+                        if (newPage == pages.subscriptionsPage)
                         {
                             UpdateSubscriptionButtons();
                             helpButton.SetActive(true);
                         }
-                        if(newPage == editProfilePage)
+                        if(newPage == pages.editProfilePage)
                         {
                             UpdateEditProfilePage();
                         }
-                        if(newPage == profilePage)
+                        if(newPage ==  pages.profilePage)
                         {
                             UpdateProfilePage();
                         }
@@ -129,24 +138,24 @@ namespace PageManagement
         }
         public void ChangePageToAddToSubscription(ProductData product, Sprite image)
         {
-            productPage.GetComponent<AddToSubscriptionPopUpScript>().SetValues(product,image);
+            pages.productPage.GetComponent<AddToSubscriptionPopUpScript>().SetValues(product,image);
             helpButton.SetActive(false);
-            ChangeCurrentPage(productPage);
+            ChangeCurrentPage(pages.productPage);
         }
         public void ChangePageToSubscriptionEditPage(Subscription subscription, Sprite image)
         {
-            editSubsciptionPage.GetComponent<EditSubscriptionPopUpScript>().SetValues(subscription,image);
+            pages.editSubsciptionPage.GetComponent<EditSubscriptionPopUpScript>().SetValues(subscription,image);
             helpButton.SetActive(false);
             SubscriptionManagerScript.Instance.RemoveSubscription(subscription); 
-            ChangeCurrentPage(editSubsciptionPage);
+            ChangeCurrentPage(pages.editSubsciptionPage);
         }
         public void HideAddToSubscriptionPopUp()
         {
-            productPage.SetActive(false);
+            pages.productPage.SetActive(false);
         }
         public void SwitchFromTechPagesToUsables()
         {
-            ChangeCurrentPage(mainPage);
+            ChangeCurrentPage(pages.mainPage);
             techPagesSeparator.SetActive(false);
         }
         public void ShowNavPanelAccordingToUserType(UserType userType)
@@ -200,7 +209,7 @@ namespace PageManagement
         }
         public void UpdateMainPage()
         {
-            mainPage.SetActive(true); 
+            pages.mainPage.SetActive(true); 
             SubscriptionManagerScript.Instance.RetrieveProductsFromDB();
 
             foreach (Transform child in mainPageVariables.productScrollViewContent)
@@ -246,6 +255,27 @@ namespace PageManagement
         {
             helpPopUp.SetActive(false);
             helpButton.SetActive(true);
+        }
+        public void FillApprovalPage()
+        {
+            List<ProductData> approvables;
+            if (DatabaseManager.TryRetrieveApprovables(out approvables))
+            {
+                foreach (Transform child in approvablesVariables.approvablesScrollView.GetComponent<ScrollRect>().content)
+                    Destroy(child.gameObject);
+
+                foreach (ProductData approvable in approvables)
+                {
+                    GameObject approvableWidget = Instantiate(approvablesVariables.approvablePrefab,
+                                                              approvablesVariables.approvablesScrollView.GetComponent<ScrollRect>().content);
+                    approvableWidget.GetComponent<ApprovableScript>().SetValues(approvable);
+                }
+                Debug.Log("Approvables successfully retrieved");
+            }
+            else
+            {
+                Debug.LogError("Couldn't open approvables");
+            }
         }
     }
 }
