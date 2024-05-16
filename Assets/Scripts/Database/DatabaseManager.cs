@@ -2,7 +2,7 @@ using CorvusEnLignumDBSolutionsIncorporated;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Unity.VisualScripting;
+using System.Linq.Expressions;
 using UnityEngine;
 using static Assets.Scripts.Database.DataStructures;
 using Debug = UnityEngine.Debug;
@@ -149,6 +149,39 @@ public class DatabaseManager : MonoBehaviour
         catch (Exception ex)
         {
             Debug.LogError(ex);
+            return false;
+        }
+    }
+
+    public static bool TryRetrieveAllData(out MyList<TableData> allData)
+    {
+        allData = new MyList<TableData>() { list = new List<TableData>() } ;
+        foreach (string tableName in MSSQLServerConnector.GetTableNames())
+        {
+            TableData tableData = new TableData() { name = tableName };
+            DataTable someTable = MSSQLServerConnector.GetDataTableByName(tableName);
+            tableData.columnNames = new MyList<string>() { list = MSSQLServerConnector.GetColumnNames(tableName) };
+
+            foreach (DataRow row in someTable.Rows)
+            {
+                MyList<string> rowData = new MyList<string>() { list = new List<string>() };
+                foreach (var item in row.ItemArray)
+                {
+                    rowData.list.Add(item?.ToString());
+                }
+                tableData.tableRows = new MyList<MyList<string>>() { list = new List<MyList<string>>() };
+                tableData.tableRows.list.Add(rowData);
+            }
+            allData.list.Add(tableData);
+        }
+        return true;
+        try
+        {
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex);
+            allData = new MyList<TableData>();
             return false;
         }
     }

@@ -1,31 +1,53 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
+using UserManagement;
+using static Assets.Scripts.Database.DataStructures;
 using Directory = System.IO.Directory;
 using File = System.IO.File;
 
-public class TempLocalDataManagerScript : MonoBehaviour
+public class LocalDataManagerScript : MonoBehaviour
 {
+    public static LocalDataManagerScript Instance { get; private set; }
     private static string dbName = "mainDB.mdf";
     private static string dbLogName = "mainDB_log.ldf";
     void Awake()
     {
+        Instance = this;
         CopyResourcesToLocalFiles();
         DatabaseManager.Initiate();
     }
     private void CopyResourcesToLocalFiles()
     {
         TextAsset subscriptionsJsonFile = Resources.Load<TextAsset>("SubscriptionsDataDraft");
+        SaveJsonDocumentToDefaultFolder("SubscriptionsDataDraft.json", subscriptionsJsonFile.text);
+        SubscriptionManagerScript.Instance.subscriptionsJsonFile = Resources.Load<TextAsset>("SubscriptionsDataDraft");
+        //StartCoroutine(CopyDBToLocalFile(whereToSave)); Works with sqlite only
+    }
+
+    private void SaveJsonDocumentToDefaultFolder(string fileName, string jsonDataToSave)
+    {
         string whereToSave = Application.persistentDataPath + "/Data/";
         if (!Directory.Exists(whereToSave))
             Directory.CreateDirectory(whereToSave);
-        Debug.Log(Path.Combine(whereToSave, "SubscriptionsDataDraft.json"));
-        if (!File.Exists(Path.Combine(whereToSave, "SubscriptionsDataDraft.json")))
-            File.WriteAllText(Path.Combine(whereToSave, "SubscriptionsDataDraft.json"), subscriptionsJsonFile.text);
+        Debug.Log(Path.Combine(whereToSave, fileName));
+        if (!File.Exists(Path.Combine(whereToSave, fileName)))
+            File.WriteAllText(Path.Combine(whereToSave, fileName), jsonDataToSave);
         SubscriptionManagerScript.Instance.JsonSavingDirectory = whereToSave;
-        SubscriptionManagerScript.Instance.subscriptionsJsonFile = Resources.Load<TextAsset>("SubscriptionsDataDraft");
-        //StartCoroutine(CopyDBToLocalFile(whereToSave)); Works with sqlite only
+    }
+
+    public void MakeJsonReserveCopyForDB()
+    {
+        MyList<TableData> allData;
+        if (DatabaseManager.TryRetrieveAllData(out allData))
+        {
+            SaveJsonDocumentToDefaultFolder("Reserve.json", JsonUtility.ToJson(allData));
+            Debug.Log("DB successfully copied");
+        }
+        else
+            Debug.LogError("Reserve DB copy failed");
     }
 
     private IEnumerator CopyDBToLocalFile(string whereToSave)

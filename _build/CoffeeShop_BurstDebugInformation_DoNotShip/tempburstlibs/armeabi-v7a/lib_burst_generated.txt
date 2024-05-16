@@ -31,11 +31,11 @@ Library: C:\Users\Viqtop\CoffeeShop\Temp\BurstOutput\tempburstlibs\armeabi-v7a\l
 --assembly-defines=Unity.VisualScripting.State;
 --assembly-defines=Unity.Notifications.Android;
 --assembly-defines=Unity.Collections.LowLevel.ILSupport;
+--assembly-defines=I18N.West;
+--assembly-defines=I18N;
 --assembly-defines=MSSQLServerConnector;
 --assembly-defines=Unity.VisualScripting.Antlr3.Runtime;
 --assembly-defines=Unity.Burst.Unsafe;
---assembly-defines=I18N;
---assembly-defines=I18N.West;
 --assembly-defines=System.Collections;
 --assembly-defines=System.Data.Common;
 --assembly-defines=System.Data.SqlClient;
