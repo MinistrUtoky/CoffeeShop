@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using static Assets.Scripts.Database.DataStructures;
 using System.Text.RegularExpressions;
 using static TMPro.TMP_InputField;
+using System.Collections.Generic;
 
 namespace UserManagement {
     public class UserManagerScript : MonoBehaviour
@@ -12,7 +13,11 @@ namespace UserManagement {
         public static UserManagerScript Instance { get; private set; }        
         [HideInInspector]
         public UnityEvent OnLogin;
-        
+        private int customImageID;
+
+        [SerializeField]
+        private List<Sprite> userPictureSprites;
+
         private UserData currentUser = new UserData
         {
             displayName = "Nataniel", //from db
@@ -25,6 +30,7 @@ namespace UserManagement {
         private void Awake()
         {
             Instance = this;
+            customImageID = 0;
         }
         public string Login(TMP_InputField loginField, TMP_InputField passwordField, string currency="Euro")
         {
@@ -41,6 +47,7 @@ namespace UserManagement {
             }
             else
                 return "Such user does not exist";
+            
         } 
 
         public string Register(TMP_InputField loginField, TMP_InputField emailOrPhoneField, TMP_InputField passwordField, TMP_Dropdown userType, string currency="Euro")
@@ -92,6 +99,30 @@ namespace UserManagement {
         public UserData GetCurrentUser()
         {
             return currentUser;
+        }
+        public List<Sprite> GetProfilePictureList()
+        {
+            return userPictureSprites;
+        }
+        public string GetCustomUserName()
+        {
+            return currentUser.displayName;
+        }
+        public Sprite GetPicture(int id)
+        {
+            return userPictureSprites[id];
+        }
+        public void SetPictureId(int id)
+        {
+            customImageID = id;
+        }
+        public int GetPictureId()
+        {
+            return customImageID;
+        }
+        public void SetCustomUserName(string customUserName)
+        {
+            currentUser.displayName = customUserName;
         }
         public void ShowOrHidePassword(TMP_InputField passwordField)
         {

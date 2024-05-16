@@ -1,9 +1,12 @@
 using CorvusEnLignumDBSolutionsIncorporated;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UserManagement;
 using static Assets.Scripts.Database.DataStructures;
 using ProductData = Assets.Scripts.Database.DataStructures.ProductData;
 
@@ -31,6 +34,19 @@ namespace PageManagement
             public Transform SubscriptionButtonPrefab;
             public Transform SubscriptionScrollViewContent;
         }
+        [Serializable]
+        private struct ProfilePageVariables
+        {
+            public Image profilePicture;
+            public TextMeshProUGUI customUserName;
+        }
+        [Serializable]
+        private struct EditProfilePageVariables
+        {
+            public TMP_InputField customUserNameInputField;
+            public Transform profilePictureSelectorContentTransform;
+            public Transform profilePictureButtonPrefab;
+        }
         public static PageManagerScript Instance { get; private set; }
         private GameObject currentPage;
         [SerializeField] 
@@ -53,6 +69,18 @@ namespace PageManagement
         private RectTransform bottomPanel;
         [SerializeField]
         private BottomPanelByUserType bottomPanelPresets;
+        [SerializeField]
+        private GameObject profilePage;
+        [SerializeField]
+        private ProfilePageVariables profilePageVariables;
+        [SerializeField]
+        private GameObject editProfilePage;
+        [SerializeField]
+        private EditProfilePageVariables editProfilePageVariables;
+        [SerializeField]
+        private GameObject helpButton;
+        [SerializeField]
+        private GameObject helpPopUp;
         public GameObject CurrentScene { get { return currentPage; } }
         private void Awake()
         {
@@ -74,10 +102,25 @@ namespace PageManagement
                         if (newPage == mainPage)
                         {
                             UpdateMainPage();
+                            helpButton.SetActive(true);
+                        }
+                        if (newPage == profilePage)
+                        {
+
+                            helpButton.SetActive(true);
                         }
                         if (newPage == subscriptionsPage)
                         {
                             UpdateSubscriptionButtons();
+                            helpButton.SetActive(true);
+                        }
+                        if(newPage == editProfilePage)
+                        {
+                            UpdateEditProfilePage();
+                        }
+                        if(newPage == profilePage)
+                        {
+                            UpdateProfilePage();
                         }
                         currentPage = newPage;
                     }
@@ -87,11 +130,13 @@ namespace PageManagement
         public void ChangePageToAddToSubscription(ProductData product, Sprite image)
         {
             productPage.GetComponent<AddToSubscriptionPopUpScript>().SetValues(product,image);
+            helpButton.SetActive(false);
             ChangeCurrentPage(productPage);
         }
         public void ChangePageToSubscriptionEditPage(Subscription subscription, Sprite image)
         {
             editSubsciptionPage.GetComponent<EditSubscriptionPopUpScript>().SetValues(subscription,image);
+            helpButton.SetActive(false);
             SubscriptionManagerScript.Instance.RemoveSubscription(subscription); 
             ChangeCurrentPage(editSubsciptionPage);
         }
@@ -130,7 +175,29 @@ namespace PageManagement
                                                          canvasScale.y * bg.GetComponent<RectTransform>().rect.height / 2, 0);
                 bottomButtons[i].gameObject.SetActive(true);
             }
-        }   
+        }
+        public void SaveProfileEdits()
+        {
+            UserManagerScript.Instance.SetCustomUserName(editProfilePageVariables.customUserNameInputField.text);
+        }
+        public void UpdateProfilePage()
+        {
+            profilePageVariables.customUserName.text =UserManagerScript.Instance.GetCustomUserName();
+            profilePageVariables.profilePicture.sprite=UserManagerScript.Instance.GetPicture(UserManagerScript.Instance.GetPictureId());
+        }
+        public void UpdateEditProfilePage()
+        {
+            editProfilePageVariables.customUserNameInputField.text = UserManagerScript.Instance.GetCustomUserName();
+            foreach (Transform child in editProfilePageVariables.profilePictureSelectorContentTransform)
+            {
+                Destroy(child.gameObject);
+            }
+            foreach (Sprite profilePicture in UserManagerScript.Instance.GetProfilePictureList())
+            {
+                Transform profilePictureButtonTransform = Instantiate(editProfilePageVariables.profilePictureButtonPrefab,editProfilePageVariables.profilePictureSelectorContentTransform);
+                profilePictureButtonTransform.GetComponent<Image>().sprite = profilePicture;
+            }
+        }
         public void UpdateMainPage()
         {
             mainPage.SetActive(true); 
@@ -169,6 +236,16 @@ namespace PageManagement
         {
             MSSQLServerConnector.CloseDBConnection();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        public void ShowHelp()
+        {
+            helpPopUp.SetActive(true);
+            helpButton.SetActive(false);
+        }
+        public void HideHelp()
+        {
+            helpPopUp.SetActive(false);
+            helpButton.SetActive(true);
         }
     }
 }

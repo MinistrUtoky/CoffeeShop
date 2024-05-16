@@ -28,7 +28,7 @@ public class EditSubscriptionPopUpScript : MonoBehaviour
     public void SetValues(Subscription subscription ,Sprite image)
     {
         this.subscription = subscription;
-        this.product= SubscriptionManagerScript.Instance.GetProduct(subscription.productID);
+        this.product= SubscriptionManagerScript.Instance.GetProduct(subscription.productID-1);
         amount = subscription.productAmount;
         productName.text = product.name;
         this.description.text = product.description;
