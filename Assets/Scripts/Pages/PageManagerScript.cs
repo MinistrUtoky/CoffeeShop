@@ -46,6 +46,7 @@ namespace PageManagement
             public TMP_InputField customUserNameInputField;
             public Transform profilePictureSelectorContentTransform;
             public Transform profilePictureButtonPrefab;
+            public TMP_Dropdown currencyDropdown;
         }
         [Serializable]
         private struct Pages
@@ -188,6 +189,8 @@ namespace PageManagement
         public void SaveProfileEdits()
         {
             UserManagerScript.Instance.SetCustomUserName(editProfilePageVariables.customUserNameInputField.text);
+            var user = UserManagerScript.Instance.GetCurrentUser();
+            user.currency =editProfilePageVariables.currencyDropdown.options[editProfilePageVariables.currencyDropdown.value].text;
         }
         public void UpdateProfilePage()
         {

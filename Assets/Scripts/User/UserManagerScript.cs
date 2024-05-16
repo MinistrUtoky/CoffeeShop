@@ -101,6 +101,14 @@ namespace UserManagement {
         {
             return login.Length > 6;
         }
+        public string GetCurrentUserCurrency()
+        {
+            return currentUser.currency;
+        }
+        public void SetCurrentUserCurrency(string currency)
+        {
+            currentUser.currency = currency;
+        }
         public UserData GetCurrentUser()
         {
             return currentUser;
