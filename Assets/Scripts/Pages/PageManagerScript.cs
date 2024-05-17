@@ -1,11 +1,12 @@
 using CorvusEnLignumDBSolutionsIncorporated;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
+using UserManagement;
 using static Assets.Scripts.Database.DataStructures;
 using ProductData = Assets.Scripts.Database.DataStructures.ProductData;
 
@@ -34,6 +35,20 @@ namespace PageManagement
             public Transform SubscriptionScrollViewContent;
         }
         [Serializable]
+        private struct ProfilePageVariables
+        {
+            public Image profilePicture;
+            public TextMeshProUGUI customUserName;
+        }
+        [Serializable]
+        private struct EditProfilePageVariables
+        {
+            public TMP_InputField customUserNameInputField;
+            public Transform profilePictureSelectorContentTransform;
+            public Transform profilePictureButtonPrefab;
+            public TMP_Dropdown currencyDropdown;
+        }
+        [Serializable]
         private struct Pages
         {
             public GameObject starterPage;
@@ -41,6 +56,9 @@ namespace PageManagement
             public GameObject editSubsciptionPage;
             public GameObject mainPage;
             public GameObject subscriptionsPage;
+            public GameObject editProfilePage;
+            public GameObject profilePage;
+
         }
         [Serializable]
         private struct ApprovablesVariables
@@ -53,8 +71,6 @@ namespace PageManagement
         [SerializeField]
         private GameObject techPagesSeparator;
         [SerializeField]
-        private Pages pages;
-        [SerializeField]
         private SubscriptionPageVariables subscriptionPageVariables;
         [SerializeField] 
         private MainPageVariables mainPageVariables;
@@ -62,8 +78,19 @@ namespace PageManagement
         private RectTransform bottomPanel;
         [SerializeField]
         private BottomPanelByUserType bottomPanelPresets;
+
+        [SerializeField]
+        private ProfilePageVariables profilePageVariables;
+        [SerializeField]
+        private Pages pages;
+        [SerializeField]
+        private EditProfilePageVariables editProfilePageVariables;
         [SerializeField]
         private ApprovablesVariables approvablesVariables;
+        [SerializeField]
+        private GameObject helpButton;
+        [SerializeField]
+        private GameObject helpPopUp;
         public GameObject CurrentScene { get { return currentPage; } }
         private void Awake()
         {
@@ -85,10 +112,25 @@ namespace PageManagement
                         if (newPage == pages.mainPage)
                         {
                             UpdateMainPage();
+                            helpButton.SetActive(true);
+                        }
+                        if (newPage == pages.profilePage)
+                        {
+
+                            helpButton.SetActive(true);
                         }
                         if (newPage == pages.subscriptionsPage)
                         {
                             UpdateSubscriptionButtons();
+                            helpButton.SetActive(true);
+                        }
+                        if(newPage == pages.editProfilePage)
+                        {
+                            UpdateEditProfilePage();
+                        }
+                        if(newPage ==  pages.profilePage)
+                        {
+                            UpdateProfilePage();
                         }
                         currentPage = newPage;
                     }
@@ -98,11 +140,13 @@ namespace PageManagement
         public void ChangePageToAddToSubscription(ProductData product, Sprite image)
         {
             pages.productPage.GetComponent<AddToSubscriptionPopUpScript>().SetValues(product,image);
+            helpButton.SetActive(false);
             ChangeCurrentPage(pages.productPage);
         }
         public void ChangePageToSubscriptionEditPage(Subscription subscription, Sprite image)
         {
             pages.editSubsciptionPage.GetComponent<EditSubscriptionPopUpScript>().SetValues(subscription,image);
+            helpButton.SetActive(false);
             SubscriptionManagerScript.Instance.RemoveSubscription(subscription); 
             ChangeCurrentPage(pages.editSubsciptionPage);
         }
@@ -141,7 +185,31 @@ namespace PageManagement
                                                          canvasScale.y * bg.GetComponent<RectTransform>().rect.height / 2, 0);
                 bottomButtons[i].gameObject.SetActive(true);
             }
-        }   
+        }
+        public void SaveProfileEdits()
+        {
+            UserManagerScript.Instance.SetCustomUserName(editProfilePageVariables.customUserNameInputField.text);
+            var user = UserManagerScript.Instance.GetCurrentUser();
+            user.currency =editProfilePageVariables.currencyDropdown.options[editProfilePageVariables.currencyDropdown.value].text;
+        }
+        public void UpdateProfilePage()
+        {
+            profilePageVariables.customUserName.text =UserManagerScript.Instance.GetCustomUserName();
+            profilePageVariables.profilePicture.sprite=UserManagerScript.Instance.GetPicture(UserManagerScript.Instance.GetPictureId());
+        }
+        public void UpdateEditProfilePage()
+        {
+            editProfilePageVariables.customUserNameInputField.text = UserManagerScript.Instance.GetCustomUserName();
+            foreach (Transform child in editProfilePageVariables.profilePictureSelectorContentTransform)
+            {
+                Destroy(child.gameObject);
+            }
+            foreach (Sprite profilePicture in UserManagerScript.Instance.GetProfilePictureList())
+            {
+                Transform profilePictureButtonTransform = Instantiate(editProfilePageVariables.profilePictureButtonPrefab,editProfilePageVariables.profilePictureSelectorContentTransform);
+                profilePictureButtonTransform.GetComponent<Image>().sprite = profilePicture;
+            }
+        }
         public void UpdateMainPage()
         {
             pages.mainPage.SetActive(true); 
@@ -181,7 +249,16 @@ namespace PageManagement
             MSSQLServerConnector.CloseDBConnection();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-
+        public void ShowHelp()
+        {
+            helpPopUp.SetActive(true);
+            helpButton.SetActive(false);
+        }
+        public void HideHelp()
+        {
+            helpPopUp.SetActive(false);
+            helpButton.SetActive(true);
+        }
         public void FillApprovalPage()
         {
             List<ProductData> approvables;
@@ -192,7 +269,7 @@ namespace PageManagement
 
                 foreach (ProductData approvable in approvables)
                 {
-                    GameObject approvableWidget = Instantiate(approvablesVariables.approvablePrefab, 
+                    GameObject approvableWidget = Instantiate(approvablesVariables.approvablePrefab,
                                                               approvablesVariables.approvablesScrollView.GetComponent<ScrollRect>().content);
                     approvableWidget.GetComponent<ApprovableScript>().SetValues(approvable);
                 }
