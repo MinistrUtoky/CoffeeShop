@@ -16,7 +16,7 @@ public class DatabaseManager : MonoBehaviour
     }
     public static void Initiate()//string dataPath)
     {
-        MSSQLServerConnector.cn_String = "Data Source=sql.bsite.net\\MSSQL2016;Persist Security Info=True;User ID=mutoky_;Password=123;";//"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + dataPath + ";Integrated Security=True;Connect Timeout=30;Initial Catalog=mainDB;";
+        MSSQLServerConnector.cn_String = "";
         Debug.Log(MSSQLServerConnector.cn_String);
 
         foreach (string d in MSSQLServerConnector.GetColumnNames("approvables"))
