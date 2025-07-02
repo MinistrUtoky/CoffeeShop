@@ -1,4 +1,5 @@
 # CoffeeShop
+Android Coffee Shop application utilizing Unity 2D Engine capabilities and online database connection through an ORM usage
 Правила работы с системой контроля версий:
 1) ВСЕ РАБОТАЮТ НАД СВОЕЙ ЗАРАНЕЕ ОБГОВОРЕННОЙ ЧАСТЬЮ ЛОГИКИ/ДИЗАЙНА С ЦЕЛЬЮ ИЗБЕЖАНИЯ СТИРАНИЯ ЧУЖОГО ПРОГРЕССА
 2) ЗАПРЕЩАЕТСЯ ИЗМЕНЕНИЕ СТРУКТУРЫ ПРОЕКТА
